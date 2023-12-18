@@ -1,0 +1,47 @@
+!the color in bsd man pages #1e1f21
+! Set the default foreground and background colors
+*foreground:   #ffffff
+*background:   #222222
+
+! Define some basic colors
+*color0:       #000000
+*color1:       #ff0000
+*color2:       #00ff00
+*color3:       #ffff00
+*color4:       #0000ff
+*color5:       #ff00ff
+*color6:       #00ffff
+*color7:       #ffffff
+*color8:       #808080
+*color9:       #ff0000
+*color10:      #00ff00
+*color11:      #ffff00
+*color12:      #0000ff
+*color13:      #ff00ff
+*color14:      #00ffff
+*color15:      #c0c0c0
+
+! Set the font for X applications
+*font:         -*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*
+
+! Customize the terminal cursor
+*cursorColor:  #ffcc00
+
+! Customize the terminal prompt
+*prompt0:      \\u@\\h \\W\\$
+*prompt1:      \\u@\\h \\w\\$
+
+! Set the terminal scrollback buffer size
+*saveLines:    10000
+
+! Enable anti-aliasing for fonts
+*Xft.antialias: true
+*Xft.autohint:  true
+*Xft.dpi:       96
+*Xft.hinting:   true
+*Xft.hintstyle: hintslight
+*Xft.lcdfilter: lcddefault
+
+
+
+sxiv.background: #000000

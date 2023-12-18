@@ -1,0 +1,15 @@
+map <C-z> recolor
+#set smooth-scroll "true"
+set completion-bg "#504945"
+set completion-fg "#ebdbb2"
+#set recolor-darkcolor "#ebdbb2"
+set recolor-darkcolor "#fbfbfb"
+set recolor-lightcolor "#222222"
+set default-bg  "#222222"
+set default-fg  "#ebdbb2"
+set selection-clipboard clipboard
+#set selection-clipboard xclip
+#set custom-set "ps|ps.gz|dvi|pps|pps.gz|ppsx: mupdf %p"
+
+
+#set psdvi "unoconv -f pdf -o /tmp %f && zathura /tmp/%n.pdf && rm /tmp/%n.pdf"

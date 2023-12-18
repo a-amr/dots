@@ -1,0 +1,155 @@
+F1
+  $HOME/scripts/time_date
+
+{F2,F3}
+ light -{U,A} 3
+
+F4
+   $HOME/scripts/battary_notify
+
+F5
+    $HOME/scripts/vol_control toggle
+
+F6
+   $HOME/scripts/vol_control  down
+
+F7
+  $HOME/scripts/vol_control up
+
+alt + z
+   krunner
+
+alt + shift + p
+  rofi -matching fuzzy -show run
+
+#60 precent keyboard emulation----------------------------------
+
+super+ 1
+    xdotool keyup 1 key --clearmodifiers F1
+super+ 2
+    xdotool keyup 2 key --clearmodifiers F2
+super+ 3
+    xdotool keyup 3 key --clearmodifiers F3
+super+ 4
+    xdotool keyup 4 key --clearmodifiers F4
+super+ 5
+    xdotool keyup 5 key --clearmodifiers F5
+super+ 6
+    xdotool keyup 6 key --clearmodifiers F6
+super+ 7
+    xdotool keyup 7 key --clearmodifiers F7
+
+super+ j
+    xdotool keyup j key --clearmodifiers Down
+
+super+ h
+    xdotool keyup h key --clearmodifiers Left
+
+super+ k
+    xdotool keyup k key --clearmodifiers Up
+
+super + l
+    xdotool keyup l key --clearmodifiers Right
+
+
+#end of it---------------------------------------------
+
+
+alt + v
+ mpv $(xclip -o -selection clipboard)
+alt + e
+	dm-dictionary -r
+
+alt + o 
+	xdg-open $(xclip -o -selection clipboard)
+
+
+
+
+
+
+
+alt +  BackSpace
+ slock
+
+# Play/Pause music with Alt + Insert
+
+#alt + Insert
+#    mocp -G
+#
+## Previous track with Alt + Home
+#alt + Home
+#    mocp -r
+#
+## Next track with Alt + PageUp
+#alt + Up
+#    mocp -f
+
+
+#alt + Return
+# st tmux
+
+
+#super + Return
+# st tmux
+
+# Start program launcher
+#alt + d
+#    dmenu_run
+
+# Sound controls
+alt + ctrl + m
+    pavucontrol
+
+	
+
+#alt + c
+#    qutebrowser
+
+#######################################################
+#######################################################
+alt + x
+    xkill
+#######################################################
+#bspwm
+# Close window
+#super + q
+#	bspc node --close
+## Close window
+#alt + q
+#	bspc node --close
+## Navigate layouts
+#alt + {_,shift + }space
+#	bspc desktop --layout {next,prev}
+#
+## Toogle tiling of window
+#alt +shift + d
+#	bspc query --nodes -n focused.tiled && state=floating || state=tiled; \
+#	bspc node --state \~$state
+## Toggle fullscreen of window
+#alt + f
+#	bspc node --state \~fullscreen
+## Focus next/previous window
+#alt + {_,shift} + Tab
+#	bspc node --focus {prev,next}
+#
+## Move window to selected desktop
+#alt + shift + {1-9,0}
+#	bspc node --to-desktop ^{1-9,10} --focus
+#
+## Focus selected desktop 
+#alt + {1-9,0}
+#	bspc desktop --focus ^{1-9,10}
+#
+#
+## Focus selected desktop again ///////////////
+#super + {1-9,0}
+#	bspc desktop --focus ^{1-9,10}
+#
+## Focus when clicking
+#~button1
+#	bspc pointer --grab focus
+#
+## make sxhkd reload its configuration files:
+alt + Escape
+	pkill -USR1 -x sxhkd
