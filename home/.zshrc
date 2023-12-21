@@ -5,6 +5,8 @@ zstyle :compinstall filename '/home/ababa/.zshrc'
 bindkey -v '^?' backward-delete-char
 bindkey '^H' backward-delete-char
 
+unsetopt CASE_GLOB
+
 autoload -Uz compinit
 compinit
 # aliases 
@@ -63,4 +65,7 @@ zstyle ':fzf-tab:*' fzf-bindings 'ctrl-j:accept' 'ctrl-h:backward-delete-char'
 #transset -a 0.95 >/dev/null 
 #rsync --progress -auv
 # qemu-img create -f qcow2 xxx.img xxG
+# qemu-system-x86_64 -enable-kvm -cdrom xxxx.iso -boot menu=on -drive file=xxxx.img -m xG -cpu host -smp x -vga std -display sdl,gl=on
+#qemu-system-x86_64 -enable-kvm -cdrom isoFiles/archlinux-2023.07.01-x86_64.iso -boot menu=on -drive file=archlinux.img -m 3G -cpu host
+#qemu-system-x86_64 -enable-kvm -cdrom isoFiles/elementaryos-7.0-stable.20230129rc.iso -boot menu=on -drive file=manjaro.img -m 5G -cpu host -smp 6 -vga virtio -display sdl,gl=on
 # qemu-system-x86_64 -enable-kvm -boot menu=off -drive file=/home/ababa/qemu/win.img -m 5G -cpu host -smp 6 -vga virtio -display sdl,gl=on
