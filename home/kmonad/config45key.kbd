@@ -1,0 +1,49 @@
+(defcfg
+input  (device-file "/dev/input/by-id/usb-COOLER_MASTER_CK550_V2_Gaming_Mechanical_Keyboard-event-kbd")
+;;input         (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
+output (uinput-sink "KMonad kbd")
+  fallthrough true
+  allow-cmd true
+)
+
+;;to do is to make vim-like have a number in the qwerty row
+;;also to fix some shift ghosts typed by misatke 
+  ;;   l;  bspc in the default layer
+
+(defsrc
+  esc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps  a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet cmp  rctl
+)
+
+(defalias
+  ;;:%s/around-next/sticky-key 500
+  cl (sticky-key 1000 lctl)
+  sl (sticky-key 1000 lsft)
+  sr (sticky-key 1000 rsft)
+  vit (layer-toggle vim-like)
+  als (around-next lalt)
+  o (around-next o)
+)
+
+;;esc  a    s    d    f    g    _    h    j    k    l     ;   bspc  ret
+(deflayer qwerty
+  _ 
+  tab  q    w    e    r    t    -    y    u    i    o    p    bspc  _
+  esc  a    s    d    f    g    _    h    j    k    l    bspc  ret  _
+  @sl  z    x    c    v    b    _    n    m    ,    .    /    @sr
+  _    _    _    @vit @cl  _    _    spc  @als _    _    _ 
+  _    _    _              tab              _    _    _    _  
+)
+(deflayer vim-like
+  _
+  _    1    2    3    4    5    6    7    8    9    0     -    =    bspc
+  esc  a    s    d    f    g    _    left down up   right ;    '    _
+  @sl  !    @    #    $    %    _    ^    &    *    \(    \)   @sr 
+  _    _    _    lalt rctl _    _   spc  ralt  _    _     _ 
+  _    _    _              _              _    _    _     _  
+)
+
