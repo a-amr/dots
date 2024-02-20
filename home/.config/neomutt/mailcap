@@ -1,0 +1,9 @@
+text/html; lynx -dump %s; nametemplate=%s.html; copiousoutput;
+#text/html; lynx -assume_charset=%{charset} -display_charset=utf-8 -dump -width=1024 %s; nametemplate=%s.html; copiousoutput;
+text/plain; cat %s; copiousoutput
+#text/html; qutebrowser %s;  copiousoutput;
+text/plain;less %s; copiousoutput
+application/pdf; zahtura %s; test=test -n "$display"; needsterminal;
+image/*; sxiv '%s';
+video/*; setsid mpv --quiet %s &; copiousoutput
+audio/*; mpv %s ;
