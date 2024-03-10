@@ -7,14 +7,13 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [ 
       ./hardware-configuration.nix
     ];
 
 
-
   # Bootloader
-boot.kernelParams = [ "quiet" "splash" "nvidia.modeset=1" ]; 
+boot.kernelParams = [ "nvidia.modeset=0" ]; 
 boot.kernelPackages = pkgs.linuxPackages_latest;
 
 boot.loader = {
@@ -25,7 +24,7 @@ boot.loader = {
      efiSupport = true;
      efiInstallAsRemovable = true;
      device = "nodev";
-     useOSProber = true;
+     useOSProber = false;
   };
 };
   # Enable networking
@@ -59,27 +58,26 @@ boot.loader = {
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  #services.xserver.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
+    enable = true;
     xkb.layout = "us,ara";
     xkb.variant = "digits";
     xkb.options = "ctrl:nocaps,grp:ctrls_toggle";
   };
-  # Enable the Deepin Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.deepin.enable = false;
   services.xserver.desktopManager.plasma6.enable = true;
   services.xserver.windowManager.dwm.enable = true;
-
-
+  services.auto-cpufreq.enable = true;
 
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing.enable = false;
 
   # Enable sound with pipewlire.
+  hardware.bluetooth.enable = true;
   sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -103,15 +101,16 @@ boot.loader = {
 #};
 #
 #  services.kmonadexternal = {
-#  enable = flase;
+#  enable = false;
 #  command = "/usr/bin/env kmonad /home/ababa/.config/kmonad/config45key2.kbd &
 #";
 #};
 #
 services.xserver.videoDrivers = ["nvidia"];
 	hardware.nvidia = {
-		modesetting.enable = true;
+		modesetting.enable = true;  
 		open = false;
+		powerManagement.finegrained = true;
 		nvidiaSettings = true;
 		package = config.boot.kernelPackages.nvidiaPackages.production;
 		forceFullCompositionPipeline = true;
@@ -125,9 +124,15 @@ services.xserver.videoDrivers = ["nvidia"];
 		nvidiaBusId = "PCI:1:0:0";
 		intelBusId = "PCI:6:0:0";
 		};
+#to disable nvidia
+#boot.blacklistedKernelModules = [ "nouveau" "nvidia" "nvidia_drm" "nvidia_modeset" ];
+
 
 
 security.sudo.wheelNeedsPassword = false;
+security.polkit.enable = true ;
+security.pam.services.swaylock = {};
+security.pam.services.waylock = {};
 
 # udisk mounting
 	services.udisks2 = {
@@ -146,7 +151,7 @@ DefaultDeviceTimeoutStopSec=10s
 
 
 
-environment.pathsToLink = [ "/share/zsh" ];
+#environment.pathsToLink = [ "/share/zsh" ];
 
 
 environment.variables.EDITOR = "nvim";
@@ -178,13 +183,6 @@ environment.variables.PS1="%m%# ";
     shell = pkgs.zsh;
   };
 
-programs = { 
-		zsh.enable = true;
-		nano.enable = false;
-		light.enable = true;
-	};
-
-
 
 
 
@@ -198,9 +196,9 @@ programs = {
  
   
   environment.systemPackages = with pkgs; [
-    neovim
+    #neovim
     nnn
-    foot   
+    foot
     gparted
     neomutt
     mailcap
@@ -212,7 +210,7 @@ programs = {
     fzf
     kbd
     sxiv
-    zathura 
+    zathura
     aria
     ffmpeg
     git
@@ -225,15 +223,14 @@ programs = {
     waybar
     bemenu
     firefox
-    #opera
     nvtop
-    dolphin
     haskellPackages.kmonad
     psmisc
     nvimpager
     grim
+    slurp
     nsxiv
-   advcpmv
+    advcpmv
     wdisplays
     light
     fd
@@ -244,45 +241,96 @@ programs = {
     unzip
     lxqt.lxqt-policykit
     kdePackages.qt6ct
-    hyprlock
+    libsForQt5.qt5ct
+    #kdePackages.kdeconnect-kde
     bicon
+    pavucontrol
+    unityhub
+    ttyper
+    lynx
+    urlscan
+    ollama
+    wl-clip-persist
+    kdePackages.dolphin
+    onlyoffice-bin
+    burpsuite
+    nwg-look
+    st
+    dmenu
+    zsh-fzf-tab
+    thefuck
+    imv
+    #for testing ----
+    dwl
+    waylock
+    swaylock-fancy
+    swaylock
+    swaylock-effects
+    swaynag-battery
+    swayidle
+    wine
+    wlsunset
+    teams-for-linux
+    obs-studio
+    xdg-utils
 
-   
     #progs
-	bash-completion
- 	git
-	wget
-	gimp
-	qemu_kvm
-	qemu
-	libvirt
-	virt-manager
-	dunst
-	#puddletag #amazing app like mp3tag
+    bash-completion
+    git
+    wget
+    gimp
+    qemu_kvm
+    qemu
+    libvirt
+    virt-manager
+    dunst
+    puddletag #amazing app like mp3tag
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
-  programs.hyprland = {
-enable = true;
-xwayland.enable = true;
-};
+
+
+
+
+#nixpkgs.overlays = [
+#    (
+#      final: prev:
+#        {
+#          dwl = prev.dwl.override { conf = ./dwl-config.h; };
+#        }
+#    )
+#  ];
+
+
+
+
+
+programs = { 
+  zsh.enable = true;
+  nano.enable = false;
+  light.enable = true;
+  fzf.keybindings = true;
+  hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
+    thefuck.enable = true;
+    #thefuck.alias  = "fuck" ;
+    
+    neovim.defaultEditor = true;
+    neovim.enable = true;
+    neovim.vimAlias = true;
+    neovim.viAlias = true ;
+    kdeconnect.enable = true ;
+
+  };
+
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-	services.dbus.enable = true;
+services.openssh.enable = true;
+services.dbus.enable = true;
 
-# system.autoUpgrade = {
-#   enable = true;
-#   flake = inputs.self.outPath;
-#   flags = [
-#     "--update-input"
-#     "nixpkgs"
-#     "-L" # print build logs
-#   ];
-#   dates = "02:00";
-#   randomizedDelaySec = "45min";
-# };
 
 
   # Open ports in the firewall.
@@ -291,13 +339,12 @@ xwayland.enable = true;
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
 #  system.stateVersion = "23.11"; # Did you read the comment?
   system.stateVersion = "24.05"; # Did you read the comment?
-
+#                                          Automatic Garbage Collection
+#nix.gc = {
+#                automatic = true;
+#                dates = "weekly";
+#                options = "--delete-older-than 7d";
+#        };
 }
