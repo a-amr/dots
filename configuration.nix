@@ -3,18 +3,24 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs-stable,pkgs, inputs, ... }:
 
 {
   imports =
     [ 
       ./hardware-configuration.nix
+      inputs.home-manager.nixosModules.default
+#      <home-manager/nixos> 
     ];
 
+
+ hardware.opentabletdriver.enable = true;
 
   # Bootloader
 boot.kernelParams = [ "nvidia.modeset=0" ]; 
 boot.kernelPackages = pkgs.linuxPackages_latest;
+boot.resumeDevice = "";
+
 
 boot.loader = {
   efi = {
@@ -57,21 +63,17 @@ boot.loader = {
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  #services.xserver.enable = true;
-
   # Configure keymap in X11
   services.xserver = {
-    enable = true;
-    xkb.layout = "us,ara";
-    xkb.variant = "digits";
-    xkb.options = "ctrl:nocaps,grp:ctrls_toggle";
+    enable = false;
+ #   xkb.layout = "us,ara";
+ #   xkb.variant = "digits";
+ #   xkb.options = "ctrl:nocaps,grp:ctrls_toggle";
   };
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma6.enable = true;
-  services.xserver.windowManager.dwm.enable = true;
+  #services.xserver.displayManager.sddm.wayland.enable= true;
+  services.xserver.displayManager.gdm.enable = true;
+  #services.desktopManager.plasma6.enable = true;
   services.auto-cpufreq.enable = true;
-
 
   # Enable CUPS to print documents.
   services.printing.enable = false;
@@ -86,12 +88,10 @@ boot.loader = {
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+    wireplumber.enable = true;
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
 #  services.kmonad = {
@@ -111,9 +111,10 @@ services.xserver.videoDrivers = ["nvidia"];
 		modesetting.enable = true;  
 		open = false;
 		powerManagement.finegrained = true;
-		nvidiaSettings = true;
-		package = config.boot.kernelPackages.nvidiaPackages.production;
+		nvidiaSettings = false;
+		#package = config.boot.kernelPackages.nvidiaPackages.stable;
 		forceFullCompositionPipeline = true;
+		package = config.boot.kernelPackages.nvidiaPackages.production;
 	};
 	hardware.nvidia.prime = {
 	#sync.enable = true;
@@ -122,7 +123,7 @@ services.xserver.videoDrivers = ["nvidia"];
 			enableOffloadCmd = true;
 		};
 		nvidiaBusId = "PCI:1:0:0";
-		intelBusId = "PCI:6:0:0";
+		amdgpuBusId = "PCI:6:0:0";
 		};
 #to disable nvidia
 #boot.blacklistedKernelModules = [ "nouveau" "nvidia" "nvidia_drm" "nvidia_modeset" ];
@@ -132,6 +133,7 @@ services.xserver.videoDrivers = ["nvidia"];
 security.sudo.wheelNeedsPassword = false;
 security.polkit.enable = true ;
 security.pam.services.swaylock = {};
+security.pam.services.gdm= {};
 security.pam.services.waylock = {};
 
 # udisk mounting
@@ -163,8 +165,9 @@ environment.variables.NNN_COLORS="23456789";
 environment.variables.NNN_FCOLORS="c1e2272e006033f7c6d6abc4";
 environment.variables.BROWSER="qutebrowser";
 environment.variables.BROWSERCLI="lynx";
-environment.variables.PAGER="nvimpager";
+#environment.variables.PAGER="nvimpager";
 environment.variables.PS1="%m%# ";
+environment.variables.QT_QPA_PLATFORMTHEME="qt6ct";
 #environment.variables.BEMENU_OPTS="--binding vim";
 
 
@@ -179,10 +182,16 @@ environment.variables.PS1="%m%# ";
   users.users.ababa = {
     isNormalUser = true;
     description = "ababa";
-    extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
+    extraGroups = ["input" "networkmanager" "flatpak" "wheel" "video" "audio" ];
     shell = pkgs.zsh;
   };
 
+home-manager = {
+extraSpecialArgs = {inherit inputs; };
+users = {
+"ababa" = import ./home.nix ;
+};
+};
 
 
 
@@ -198,6 +207,7 @@ environment.variables.PS1="%m%# ";
   environment.systemPackages = with pkgs; [
     #neovim
     nnn
+    (pkgs-stable.waybar)
     foot
     gparted
     neomutt
@@ -208,7 +218,6 @@ environment.variables.PS1="%m%# ";
     yt-dlp
     qutebrowser
     fzf
-    kbd
     sxiv
     zathura
     aria
@@ -220,16 +229,15 @@ environment.variables.PS1="%m%# ";
     telegram-desktop
     gnome.gnome-disk-utility
     blueman
-    waybar
+    #waybar
     bemenu
     firefox
-    nvtop
-    haskellPackages.kmonad
+    nvtopPackages.nvidia
+    #haskellPackages.kmonad
     psmisc
-    nvimpager
+    #nvimpager
     grim
     slurp
-    nsxiv
     advcpmv
     wdisplays
     light
@@ -241,7 +249,6 @@ environment.variables.PS1="%m%# ";
     unzip
     lxqt.lxqt-policykit
     kdePackages.qt6ct
-    libsForQt5.qt5ct
     #kdePackages.kdeconnect-kde
     bicon
     pavucontrol
@@ -251,28 +258,48 @@ environment.variables.PS1="%m%# ";
     urlscan
     ollama
     wl-clip-persist
-    kdePackages.dolphin
+    wl-clipboard
+    #kdePackages.dolphin
     onlyoffice-bin
     burpsuite
     nwg-look
     st
     dmenu
     zsh-fzf-tab
-    thefuck
     imv
     #for testing ----
     dwl
     waylock
     swaylock-fancy
-    swaylock
-    swaylock-effects
-    swaynag-battery
     swayidle
     wine
     wlsunset
     teams-for-linux
     obs-studio
     xdg-utils
+    sops
+    nix-tree
+    nix-du
+    nix-index
+    yazi
+    zoxide
+    gnome.nautilus
+    exiftool
+    galculator
+    wev
+    hyprpaper
+    home-manager
+    ytfzf
+    libinput-gestures
+    libinput
+    wmctrl
+    protonup-qt
+    linuxHeaders
+    linux.dev
+    nukeReferences
+    oversteer
+    hypridle
+    dissent
 
     #progs
     bash-completion
@@ -285,10 +312,26 @@ environment.variables.PS1="%m%# ";
     virt-manager
     dunst
     puddletag #amazing app like mp3tag
+    #to build hyprgrass
+    
+    glm
+
+# build dependencies
+    meson
+    ninja
+    pkg-config
+    cmake
   ];
+
+fonts.packages= with pkgs; [
+   nerdfonts
+];
+nixpkgs.config.cudaSupport = false;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
+   virtualisation.virtualbox.host.enable = true;
+   users.extraGroups.vboxusers.members = [ "ababa" ];
 
 
 
@@ -307,17 +350,27 @@ environment.variables.PS1="%m%# ";
 
 
 programs = { 
+
+#waybar.enable = true;
+
+steam = {
+  enable = true;
+  remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+  dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+};
   zsh.enable = true;
+  zsh.interactiveShellInit = ''
+    source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
+'';
+
   nano.enable = false;
   light.enable = true;
   fzf.keybindings = true;
   hyprland = {
     enable = true;
     xwayland.enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
-    thefuck.enable = true;
-    #thefuck.alias  = "fuck" ;
-    
     neovim.defaultEditor = true;
     neovim.enable = true;
     neovim.vimAlias = true;
@@ -327,9 +380,11 @@ programs = {
   };
 
 
+
   # Enable the OpenSSH daemon.
 services.openssh.enable = true;
 services.dbus.enable = true;
+services.flatpak.enable = true;
 
 
 
@@ -339,12 +394,29 @@ services.dbus.enable = true;
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
+
+
+
+
+
+
+
+
+
+
 #  system.stateVersion = "23.11"; # Did you read the comment?
-  system.stateVersion = "24.05"; # Did you read the comment?
-#                                          Automatic Garbage Collection
-#nix.gc = {
-#                automatic = true;
-#                dates = "weekly";
-#                options = "--delete-older-than 7d";
-#        };
+ system.stateVersion = "24.05"; # Did you read the comment?
+
+nix.gc = {
+    automatic = true;
+    dates = "daily";
+    options = "--delete-older-than 3d";
+  };
+
+  # Optimize storage
+  # You can also manually optimize the store via:
+  #    nix-store --optimise
+  # Refer to the following link for more details:
+  # https://nixos.org/manual/nix/stable/command-ref/conf-file.html#conf-auto-optimise-store
+  nix.settings.auto-optimise-store = true;
 }
