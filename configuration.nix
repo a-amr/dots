@@ -9,63 +9,78 @@
   imports =
     [ 
       ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.default
-#      <home-manager/nixos> 
+      #inputs.home-manager.nixosModules.default
+      #<home-manager/nixos> 
     ];
 
 
- hardware.opentabletdriver.enable = true;
+boot.kernelParams = [
+#"loglevel=5"
+#"splash"
+"resume=/.swapfile"
+#"nvidia.modeset=0"
+#"amd_iommu=on"
+#"iommu=pt"
+#"vfio-pci.ids=10de:2520,10de:228e"
+];
 
+boot.consoleLogLevel = 7;
+#boot.initrd.availableKernelModules = [ "amdgpu" "vfio-pci" ];
+#boot.kernelModules = [ "kvm-amd" ];
+#boot.plymouth.enable - true;
   # Bootloader
-boot.kernelParams = [ "nvidia.modeset=0" ]; 
+#boot.kernelParams = [ "nvidia.modeset=0" ]; 
 boot.kernelPackages = pkgs.linuxPackages_latest;
-boot.resumeDevice = "";
-
 
 boot.loader = {
-  efi = {
-    canTouchEfiVariables = false;
-  };
-  grub = {
-     efiSupport = true;
-     efiInstallAsRemovable = true;
-     device = "nodev";
-     useOSProber = false;
-  };
+timeout = 0;
+systemd-boot.enable= true;
 };
+###     efi = {
+###       canTouchEfiVariables = false;
+###     };
+###     grub = {
+###        efiSupport = true;
+###        efiInstallAsRemovable = true;
+###        device = "nodev";
+###        useOSProber = false;
+###     };
+
+
+
+###   boot.initrd.preDeviceCommands = ''
+###     DEVS="0000:01:00.0 0000:01:00.1"
+###     for DEV in $DEVS; do
+###       echo "vfio-pci" > /sys/bus/pci/devices/$DEV/driver_override
+###     done
+###     modprobe -i vfio-pci
+###   '';
+
+
   # Enable networking
   networking.networkmanager.enable = true;
-
-
+  networking.networkmanager.wifi.backend = "iwd";
   networking.hostName = "xxx"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  # networking.firewall.enable = false;
 
 
   # Set your time zone.
   time.timeZone = "Africa/Cairo";
+  time.hardwareClockInLocalTime = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
-  };
-
   # Configure keymap in X11
   services.xserver = {
-    enable = false;
+    enable = true;
  #   xkb.layout = "us,ara";
  #   xkb.variant = "digits";
  #   xkb.options = "ctrl:nocaps,grp:ctrls_toggle";
@@ -73,16 +88,16 @@ boot.loader = {
   #services.xserver.displayManager.sddm.wayland.enable= true;
   services.xserver.displayManager.gdm.enable = true;
   #services.desktopManager.plasma6.enable = true;
-  services.auto-cpufreq.enable = true;
 
   # Enable CUPS to print documents.
-  services.printing.enable = false;
+  #services.printing.enable = false;
 
   # Enable sound with pipewlire.
+###   come check this
   hardware.bluetooth.enable = true;
   sound.enable = true;
   hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
+  security.rtkit.enable = false;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -94,52 +109,17 @@ boot.loader = {
     # no need to redefine it in your config for now)
   };
 
-#  services.kmonad = {
-#  enable = true;
-#  command = "/usr/bin/env kmonad /home/ababa/.config/kmonad/config45key.kbd &
-#";
-#};
-#
-#  services.kmonadexternal = {
-#  enable = false;
-#  command = "/usr/bin/env kmonad /home/ababa/.config/kmonad/config45key2.kbd &
-#";
-#};
-#
-services.xserver.videoDrivers = ["nvidia"];
-	hardware.nvidia = {
-		modesetting.enable = true;  
-		open = false;
-		powerManagement.finegrained = true;
-		nvidiaSettings = false;
-		#package = config.boot.kernelPackages.nvidiaPackages.stable;
-		forceFullCompositionPipeline = true;
-		package = config.boot.kernelPackages.nvidiaPackages.production;
-	};
-	hardware.nvidia.prime = {
-	#sync.enable = true;
-		offload = {
-			enable = true;
-			enableOffloadCmd = true;
-		};
-		nvidiaBusId = "PCI:1:0:0";
-		amdgpuBusId = "PCI:6:0:0";
-		};
-#to disable nvidia
-#boot.blacklistedKernelModules = [ "nouveau" "nvidia" "nvidia_drm" "nvidia_modeset" ];
-
 
 
 security.sudo.wheelNeedsPassword = false;
 security.polkit.enable = true ;
-security.pam.services.swaylock = {};
+security.pam.services.hyprlock = {};
 security.pam.services.gdm= {};
 security.pam.services.waylock = {};
 
 # udisk mounting
 	services.udisks2 = {
 		enable = true;
-		mountOnMedia = true;
 	};
 
 
@@ -152,64 +132,61 @@ DefaultDeviceTimeoutStopSec=10s
 
 
 
-
-#environment.pathsToLink = [ "/share/zsh" ];
-
-
-environment.variables.EDITOR = "nvim";
-environment.variables.NNN_NO_AUTOSELECT="1";
-environment.variables.NNN_TRASH="1	";
-environment.variables.NNN_USE_EDITOR="1";
-environment.variables.NNN_OPENER="xdg-open";
-environment.variables.NNN_COLORS="23456789";
-environment.variables.NNN_FCOLORS="c1e2272e006033f7c6d6abc4";
 environment.variables.BROWSER="qutebrowser";
-environment.variables.BROWSERCLI="lynx";
-#environment.variables.PAGER="nvimpager";
-environment.variables.PS1="%m%# ";
-environment.variables.QT_QPA_PLATFORMTHEME="qt6ct";
-#environment.variables.BEMENU_OPTS="--binding vim";
+environment.variables.QT_QPA_PLATFORM="wayland";
+environment.variables.XDG_SESSION_TYPE="wayland";
+environment.variables._JAVA_AWT_WM_NONREPARENTING="1";
+environment.variables.__GLX_VENDOR_LIBRARY_NAME="nvidia";
+environment.variables.WLR_NO_HARDWARE_CURSORS="1";
 
-
-
-
-
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ababa = {
     isNormalUser = true;
     description = "ababa";
-    extraGroups = ["input" "networkmanager" "flatpak" "wheel" "video" "audio" ];
+    extraGroups = ["libvirt" "input" "networkmanager" "flatpak" "wheel" "video" "audio" ];
     shell = pkgs.zsh;
   };
 
-home-manager = {
-extraSpecialArgs = {inherit inputs; };
-users = {
-"ababa" = import ./home.nix ;
-};
-};
-
-
+###home-manager = {
+###extraSpecialArgs = {inherit inputs; };
+###users = {
+###"ababa" = import ./home.nix ;
+###};
+###};
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = "nix-command flakes";
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+services.xserver.videoDrivers = ["nvidia"];
+	hardware.nvidia = {
+		modesetting.enable = true;  
+		open = true; #try it  -----------------------------
+		powerManagement.finegrained = true;
+		nvidiaSettings = true; #also try it --------
+		forceFullCompositionPipeline = false;
+		package = config.boot.kernelPackages.nvidiaPackages.production;
+	};
+	hardware.nvidia.prime = {
+		offload = {
+			enable = true;
+			enableOffloadCmd = true;
+		};
+		nvidiaBusId = "PCI:1:0:0";
+		amdgpuBusId = "PCI:6:0:0";
+		};
+#to disable nvidia
+#boot.blacklistedKernelModules = [ "nouveau" "nvidia" "nvidia_drm" "nvidia_modeset" ];
+
+
+
  
   
   environment.systemPackages = with pkgs; [
-    #neovim
-    nnn
-    (pkgs-stable.waybar)
     foot
     gparted
+    gnome.gnome-disk-utility
     neomutt
     mailcap
     ripgrep 
@@ -218,7 +195,6 @@ users = {
     yt-dlp
     qutebrowser
     fzf
-    sxiv
     zathura
     aria
     ffmpeg
@@ -227,57 +203,28 @@ users = {
     btop
     tldr
     telegram-desktop
-    gnome.gnome-disk-utility
-    blueman
-    #waybar
     bemenu
-    firefox
-    nvtopPackages.nvidia
-    #haskellPackages.kmonad
     psmisc
-    #nvimpager
     grim
     slurp
-    advcpmv
     wdisplays
-    light
     fd
     powertop
-    gcc
-    gnumake
-    tree
     unzip
     lxqt.lxqt-policykit
-    kdePackages.qt6ct
-    #kdePackages.kdeconnect-kde
     bicon
     pavucontrol
     unityhub
     ttyper
-    lynx
     urlscan
-    ollama
     wl-clip-persist
     wl-clipboard
-    #kdePackages.dolphin
-    onlyoffice-bin
-    burpsuite
-    nwg-look
-    st
-    dmenu
-    zsh-fzf-tab
     imv
-    #for testing ----
-    dwl
     waylock
-    swaylock-fancy
-    swayidle
     wine
     wlsunset
-    teams-for-linux
     obs-studio
     xdg-utils
-    sops
     nix-tree
     nix-du
     nix-index
@@ -288,124 +235,118 @@ users = {
     galculator
     wev
     hyprpaper
-    home-manager
     ytfzf
     libinput-gestures
-    libinput
-    wmctrl
     protonup-qt
-    linuxHeaders
-    linux.dev
-    nukeReferences
-    oversteer
     hypridle
-    dissent
-
-    #progs
-    bash-completion
-    git
-    wget
-    gimp
-    qemu_kvm
-    qemu
-    libvirt
-    virt-manager
+    linuxPackages_latest.kernel.dev
+    protontricks
+    dolphin
+    vieb
+    maven
+    postman
+    openjdk
+    ydotool
     dunst
-    puddletag #amazing app like mp3tag
-    #to build hyprgrass
-    
-    glm
+    nyxt
+    emacs
+    gnumake
+    gcc
+    luakit
+    #nyxt
+    firefox
+    #zsh-system-clipboard
+    #(pkgs.callPackage /home/ababa/Downloads/git/LegacyFox/legacyFox.nix {})
 
-# build dependencies
-    meson
-    ninja
-    pkg-config
-    cmake
+
+    #programs
+    #puddletag #amazing app like mp3tag
+    #firefox
+    #nvtopPackages.nvidia
+    #blueman
+    #(pkgs-stable.waybar)
+    #gcc
+    #gnumake
+    #tree
+    #kdePackages.qt6ct
+    #kdePackages.kdeconnect-kde
+    ollama
+    #kdePackages.dolphin
+    #lynx
+    onlyoffice-bin
+    #burpsuite
+    #nwg-look
+    #zsh-fzf-tab
+    #home-manager
+    #dissent
+    #virtio-win
   ];
 
 fonts.packages= with pkgs; [
    nerdfonts
 ];
-nixpkgs.config.cudaSupport = false;
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-   virtualisation.virtualbox.host.enable = true;
-   users.extraGroups.vboxusers.members = [ "ababa" ];
-
-
-
-
-#nixpkgs.overlays = [
-#    (
-#      final: prev:
-#        {
-#          dwl = prev.dwl.override { conf = ./dwl-config.h; };
-#        }
-#    )
-#  ];
-
-
-
+#nixpkgs.config.cudaSupport = false;
+#services.ollama.acceleration = "cuda";
 
 
 programs = { 
-
-#waybar.enable = true;
-
-steam = {
-  enable = true;
-  remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-  dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-};
-  zsh.enable = true;
-  zsh.interactiveShellInit = ''
-    source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
-'';
-
+  waybar.enable = true;
+  steam.enable = true;
+  kdeconnect.enable = true ;
+###   ###  neovim.defaultEditor = true;
+###   ###  neovim.enable = true;
+###   ###  neovim.vimAlias = true;
+###   ###  neovim.viAlias = true ;
+  fzf.keybindings = true;
+#  fzf.fuzzyCompletion = true;
   nano.enable = false;
   light.enable = true;
-  fzf.keybindings = true;
-  hyprland = {
+  zsh.enable = true;
+  zsh.autosuggestions.enable = true;
+  zsh.interactiveShellInit = ''
+    source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+zstyle ':completion:*' menu no
+'';
+#zstyle ':fzf-tab:*<CMD>*' continuous-trigger ''
+hyprland = {
     enable = true;
     xwayland.enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-  };
-    neovim.defaultEditor = true;
-    neovim.enable = true;
-    neovim.vimAlias = true;
-    neovim.viAlias = true ;
-    kdeconnect.enable = true ;
-
+#    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
 
+
+
+
+
+
+  };
 
 
   # Enable the OpenSSH daemon.
 services.openssh.enable = true;
 services.dbus.enable = true;
-services.flatpak.enable = true;
 
 
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+services.tlp = {
+  enable = true;
+  settings = {
+    CPU_BOOST_ON_AC = 1;
+    CPU_BOOST_ON_BAT = 0;
+    CPU_SCALING_GOVERNER_ON_AC = "performence";
+    CPU_SCALING_GOVERNER_ON_BAT = "powersave";
+};
+};
+services.system76-scheduler.settings.cfsProfiles.enable = true ;
+
+#programs.virt-manager.enable = true;
+#virtualisation.libvirtd = {
+#  enable = true;
+#};
 
 
-
-
-
-
-
-
-
-
-
-#  system.stateVersion = "23.11"; # Did you read the comment?
- system.stateVersion = "24.05"; # Did you read the comment?
+ system.stateVersion = "24.05"; 
 
 nix.gc = {
     automatic = true;
