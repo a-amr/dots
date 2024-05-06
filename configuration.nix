@@ -33,7 +33,7 @@ boot.consoleLogLevel = 7;
 boot.kernelPackages = pkgs.linuxPackages_latest;
 
 boot.loader = {
-timeout = 0;
+timeout = 2;
 systemd-boot.enable= true;
 };
 ###     efi = {
@@ -238,7 +238,8 @@ services.xserver.videoDrivers = ["nvidia"];
     ytfzf
     libinput-gestures
     protonup-qt
-    hypridle
+    #hypridle
+    swayidle
     linuxPackages_latest.kernel.dev
     protontricks
     dolphin
@@ -249,7 +250,7 @@ services.xserver.videoDrivers = ["nvidia"];
     ydotool
     dunst
     nyxt
-    emacs
+    #emacs
     gnumake
     gcc
     luakit
@@ -257,6 +258,10 @@ services.xserver.videoDrivers = ["nvidia"];
     firefox
     #zsh-system-clipboard
     #(pkgs.callPackage /home/ababa/Downloads/git/LegacyFox/legacyFox.nix {})
+    pkg-config
+    neovide
+    texliveTeTeX
+    gh
 
 
     #programs
@@ -289,14 +294,17 @@ fonts.packages= with pkgs; [
 #services.ollama.acceleration = "cuda";
 
 
+services.flatpak.enable = true;
+
+
 programs = { 
   waybar.enable = true;
   steam.enable = true;
   kdeconnect.enable = true ;
-###   ###  neovim.defaultEditor = true;
-###   ###  neovim.enable = true;
-###   ###  neovim.vimAlias = true;
-###   ###  neovim.viAlias = true ;
+  neovim.defaultEditor = true;
+  neovim.enable = true;
+  neovim.vimAlias = true;
+  neovim.viAlias = true ;
   fzf.keybindings = true;
 #  fzf.fuzzyCompletion = true;
   nano.enable = false;
@@ -306,7 +314,7 @@ programs = {
   zsh.interactiveShellInit = ''
     source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
 # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
-zstyle ':completion:*' menu no
+#zstyle ':completion:*' menu no
 '';
 #zstyle ':fzf-tab:*<CMD>*' continuous-trigger ''
 hyprland = {
@@ -314,7 +322,6 @@ hyprland = {
     xwayland.enable = true;
 #    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
-
 
 
 
