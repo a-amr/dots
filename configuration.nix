@@ -78,20 +78,6 @@ systemd-boot.enable= true;
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # Configure keymap in X11
-  services.xserver = {
-    enable = true;
- #   xkb.layout = "us,ara";
- #   xkb.variant = "digits";
- #   xkb.options = "ctrl:nocaps,grp:ctrls_toggle";
-  };
-  #services.xserver.displayManager.sddm.wayland.enable= true;
-  services.xserver.displayManager.gdm.enable = true;
-  #services.desktopManager.plasma6.enable = true;
-
-  # Enable CUPS to print documents.
-  #services.printing.enable = false;
-
   # Enable sound with pipewlire.
 ###   come check this
   hardware.bluetooth.enable = true;
@@ -117,10 +103,6 @@ security.pam.services.hyprlock = {};
 security.pam.services.gdm= {};
 security.pam.services.waylock = {};
 
-# udisk mounting
-	services.udisks2 = {
-		enable = true;
-	};
 
 
 # Faster shutdown and reboot
@@ -144,7 +126,7 @@ environment.variables.WLR_NO_HARDWARE_CURSORS="1";
   users.users.ababa = {
     isNormalUser = true;
     description = "ababa";
-    extraGroups = ["libvirt" "input" "networkmanager" "flatpak" "wheel" "video" "audio" ];
+    extraGroups = ["libvirt" "input" "networkmanager" "flatpak" "docker" "wheel" "video" "audio" ];
     shell = pkgs.zsh;
   };
 
@@ -159,25 +141,6 @@ environment.variables.WLR_NO_HARDWARE_CURSORS="1";
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = "nix-command flakes";
 
-services.xserver.videoDrivers = ["nvidia"];
-	hardware.nvidia = {
-		modesetting.enable = true;  
-		open = true; #try it  -----------------------------
-		powerManagement.finegrained = true;
-		nvidiaSettings = true; #also try it --------
-		forceFullCompositionPipeline = false;
-		package = config.boot.kernelPackages.nvidiaPackages.production;
-	};
-	hardware.nvidia.prime = {
-		offload = {
-			enable = true;
-			enableOffloadCmd = true;
-		};
-		nvidiaBusId = "PCI:1:0:0";
-		amdgpuBusId = "PCI:6:0:0";
-		};
-#to disable nvidia
-#boot.blacklistedKernelModules = [ "nouveau" "nvidia" "nvidia_drm" "nvidia_modeset" ];
 
 
 
@@ -189,7 +152,7 @@ services.xserver.videoDrivers = ["nvidia"];
     gnome.gnome-disk-utility
     neomutt
     mailcap
-    ripgrep 
+    ripgrep
     tmux
     mpv
     yt-dlp
@@ -238,7 +201,6 @@ services.xserver.videoDrivers = ["nvidia"];
     ytfzf
     libinput-gestures
     protonup-qt
-    #hypridle
     swayidle
     linuxPackages_latest.kernel.dev
     protontricks
@@ -250,19 +212,40 @@ services.xserver.videoDrivers = ["nvidia"];
     ydotool
     dunst
     nyxt
-    #emacs
     gnumake
-    gcc
+    #gcc
     luakit
-    #nyxt
     firefox
+    #emacs
+    #hypridle
     #zsh-system-clipboard
     #(pkgs.callPackage /home/ababa/Downloads/git/LegacyFox/legacyFox.nix {})
-    pkg-config
+    #pkg-config
     neovide
     texliveTeTeX
     gh
+    tor-browser
+    tree
+    ###################
+    file
+    xxd
+    ###################
+    mysql-workbench
+    nodejs
+    #jdk22
+    mysql_jdbc
+    mediainfo
+    cloc
+    #gtk3
 
+
+(pkgs.python3.withPackages (python-pkgs: [
+      python-pkgs.tkinter
+      python-pkgs.matplotlib
+    ]))
+
+    (import /home/ababa/osproj/default.nix)
+    (import /home/ababa/osproj/userman.nix)
 
     #programs
     #puddletag #amazing app like mp3tag
@@ -275,10 +258,10 @@ services.xserver.videoDrivers = ["nvidia"];
     #tree
     #kdePackages.qt6ct
     #kdePackages.kdeconnect-kde
-    ollama
     #kdePackages.dolphin
     #lynx
     onlyoffice-bin
+    ollama
     #burpsuite
     #nwg-look
     #zsh-fzf-tab
@@ -286,16 +269,6 @@ services.xserver.videoDrivers = ["nvidia"];
     #dissent
     #virtio-win
   ];
-
-fonts.packages= with pkgs; [
-   nerdfonts
-];
-#nixpkgs.config.cudaSupport = false;
-#services.ollama.acceleration = "cuda";
-
-
-services.flatpak.enable = true;
-
 
 programs = { 
   waybar.enable = true;
@@ -311,29 +284,81 @@ programs = {
   light.enable = true;
   zsh.enable = true;
   zsh.autosuggestions.enable = true;
+  zsh.syntaxHighlighting.enable = true;
   zsh.interactiveShellInit = ''
     source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
 # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
 #zstyle ':completion:*' menu no
-'';
+    '';
 #zstyle ':fzf-tab:*<CMD>*' continuous-trigger ''
-hyprland = {
+  hyprland = {
     enable = true;
     xwayland.enable = true;
 #    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
+};
 
 
 
+fonts.packages= with pkgs; [
+   nerdfonts
+];
 
 
+
+services.xserver.videoDrivers = ["nvidia"];
+	hardware.nvidia = {
+		modesetting.enable = true;  
+		open = true; #try it  -----------------------------
+		powerManagement.finegrained = true;
+		nvidiaSettings = true; #also try it --------
+		forceFullCompositionPipeline = false;
+		package = config.boot.kernelPackages.nvidiaPackages.production;
+	};
+	hardware.nvidia.prime = {
+		offload = {
+			enable = true;
+			enableOffloadCmd = true;
+		};
+		nvidiaBusId = "PCI:1:0:0";
+		amdgpuBusId = "PCI:6:0:0";
+		};
+#to disable nvidia
+#boot.blacklistedKernelModules = [ "nouveau" "nvidia" "nvidia_drm" "nvidia_modeset" ];
+
+
+  # Configure keymap in X11
+  services.xserver = {
+    enable = true;
+ #   xkb.layout = "us,ara";
+ #   xkb.variant = "digits";
+ #   xkb.options = "ctrl:nocaps,grp:ctrls_toggle";
   };
+  #services.xserver.displayManager.sddm.wayland.enable= true;
+  services.xserver.displayManager.gdm.enable = true;
+  #services.desktopManager.plasma6.enable = true;
+
+  # Enable CUPS to print documents.
+  #services.printing.enable = false;
+
+
+#nixpkgs.config.cudaSupport = false;
+#services.ollama.acceleration = "cuda";
+
+
+
+# udisk mounting
+	services.udisks2 = {
+		enable = true;
+	};
+
+
+#services.flatpak.enable = true;
 
 
   # Enable the OpenSSH daemon.
 services.openssh.enable = true;
 services.dbus.enable = true;
-
 
 
 services.tlp = {
@@ -346,6 +371,22 @@ services.tlp = {
 };
 };
 services.system76-scheduler.settings.cfsProfiles.enable = true ;
+
+
+#services.mysql = {
+#  enable= true;
+#  package = pkgs.mariadb;
+#};
+
+#virtualisation.docker = {
+#  enable = true;
+#  rootless = {
+#    enable = true;
+#    setSocketVariable = true;
+#  };
+#};
+
+
 
 #programs.virt-manager.enable = true;
 #virtualisation.libvirtd = {
