@@ -1,0 +1,89 @@
+  {
+  "layer": "top", 
+  "position": "bottom", // Waybar position (top|bottom|left|right)
+  "height": 30, // Waybar height (to be removed for auto height)
+  "width": 1920,
+  "spacing": 20, // Gaps (4px)
+  "modules-left": ["hyprland/workspaces", "custom/left"],
+  "modules-right": ["custom/right"],
+  //"modules-center": ["custom/internet","pulseaudio","custom/clock","custom/bat", "tray"],
+  "modules-center": ["pulseaudio","custom/clock","custom/bat", "tray"],
+
+"custom/left": {
+    "format": "                                                                                                                                                                   ",
+    "on-click": "sleep 0.2;ydotool key 56:1 31:1 31:0 56:0",
+    //"on-click": "hyprctl dispatch togglespecialworkspace magic",
+    //"on-click-right":"hyprctl dispatch movetoworkspacesilent special:magic",
+    "on-scroll-down": "light -A 3",
+    "on-scroll-up": "light -U 3"
+},
+"custom/right": {
+    "format": "                                                                                                                                                                                                          ",
+    "on-click": "sleep 0.2;ydotool key 56:1 32:1 32:0 56:0",
+    //"on-click": "hyprctl dispatch togglespecialworkspace magic",
+    //"on-click-right":"hyprctl dispatch movetoworkspacesilent special:magic",
+    "on-scroll-down": "light -A 3",
+    "on-scroll-up": "light -U 3"
+},
+
+
+
+"hyprland/workspaces": {
+     "format": "  {icon}  ",
+//     "on-scroll-up": "hyprctl dispatch workspace e-1",
+//    "on-scroll-down": "hyprctl dispatch workspace e+1"
+},
+	
+
+
+//"hyprland/window":{
+//	"format": "                                                                                    {title}                                                                                       ",
+//	"format": "                                                                                                                                                                                                             ",
+//     "on-scroll-down": "light -A 3",
+//     "on-scroll-up": "light -U 3",
+//     "on-click-middle": "hyprctl activewindow |grep pid |tr -d 'pid:'|xargs kill",
+//     "on-click-right": "hyprctl activewindow |grep pid |tr -d 'pid:'|xargs kill"
+//},
+
+
+  "tray": {
+     "icon-size": 21,
+    "spacing": 10
+  },
+"custom/bat": {
+    "format": " {} ",
+    "exec": "/home/ababa/scripts/batDwmblocks",
+	"on-click": "foot zsh -c '/home/ababa/scripts/battime'",
+    "interval": 80
+},
+"custom/clock": {
+    "format": "{} ",
+    "exec": "date '+%I:%M  %e%B'",
+	"on-click": "foot",
+    "interval": 60
+},
+
+
+//	"custom/internet": {
+//	"format": "  {}  ",
+//	"exec": "/home/ababa/scripts/checkConn.sh ",
+//	"interval":30,
+//"on-click": "foot sh -c 'nmtui'",
+//"on-click-right": "foot zsh -c 'nmcli;sleep 1'"
+//	},
+
+"pulseaudio": {
+    // "scroll-step": 8, // %, can be a float
+    "format": "  {volume}%  ",
+    "format-bluetooth": "{volume}{format_source}",
+    "format-bluetooth-muted": "m{{format_source}format_source}",
+    "format-muted": "mute",
+    "format-source-muted": "mute",
+    "on-click-right": "pavucontrol",
+	"on-click": "amixer set Master 1+ toggle",
+	"on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-",
+	"on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+"
+}
+}
+//also to make middle click minemize 
+//if i can -hyprland specfic - make right and left both make me move acitve window

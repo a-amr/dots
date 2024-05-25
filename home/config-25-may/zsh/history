@@ -1,0 +1,431 @@
+sh
+exit
+zzz
+sh
+exit
+exit
+sudo nixos-rebuild switch
+nix-collect-garbage
+sudo nix-collect-garbage -d
+lsblk
+df -g
+df -h
+sudo nixos-rebuild boot switch
+sudo nixos-rebuild boot --upgrade
+sudo nixos-rebuild --upgrade
+sudo nixos-rebuild switch--upgrade
+sudo nixos-rebuild switch --upgrade
+reboot
+nvim
+exit
+ls
+exit
+nvim s
+sudo nixos-rebuild switch
+nvim s
+ls
+ll
+vi
+vim
+alias vi
+ls
+vi /etc/nixos/home.nix
+sudo pkill X
+ls
+nvim
+dde-file-manager
+exit
+nnn
+vi /etc/nixos/home.nix
+nvim .config/zsh/
+exit
+ls
+vi
+vi /etc/nixos/home.nix
+nvim s
+rt .config/gt*
+ls
+sudo nixos-rebuild switch
+nvim s
+sudo nixos-rebuild switch
+bemenu_run
+exit
+nvim s
+exit
+exit
+setxkbmap -layout us,ara -variant ,digits -option caps:escape grp:ctrls_toggle 
+exit
+aria2c "https://ia801308.us.archive.org/13/items/TvQuran.com__Al-HussaryZip/TvQuran.com__Al-Hussary.zip"
+sudo nixos-rebuild boot --upgrade
+exit
+nnn
+nix-env --uninstall nano
+which nano
+nnn /run/current-system/sw/bin/nano
+sudo nnn /run/current-system/sw/bin/nano
+exit
+export EDITOR=nvim
+nnn
+sudo nnn /media
+nnn
+ls /media
+ll /media
+chown ababa /media/1863ab48-3592-40c1-b6a5-132595bfa9a4
+sudo chown ababa /media/1863ab48-3592-40c1-b6a5-132595bfa9a4
+sudo chown -r ababa /media/1863ab48-3592-40c1-b6a5-132595bfa9a4
+sudo chown -R ababa /media/1863ab48-3592-40c1-b6a5-132595bfa9a4
+sudo chown -R ababa /media/1863ab48-3592-40c1-b6a5-132595bfa9a4/home/ababa/Desktop/mp3-files
+nnn
+nnn /media
+exit
+firefox
+aria2c "https://ia801308.us.archive.org/13/items/TvQuran.com__Al-HussaryZip/TvQuran.com__Al-Hussary.zip"
+exit
+sudo pkill X
+exit
+nnn
+nix-shell -p unzip
+ping google.com
+exit
+exit
+reboot
+sudo chown -R root /media/1863ab48-3592-40c1-b6a5-132595bfa9a4/[a,b,e,l,m,r,t,u,p,d,l,n,r,v]*
+dde-file-manager
+reboot
+ll
+ls /usr/bin
+ll /usr/bin
+ls
+touch test
+exit
+chown 0 test
+sudo chown 0 test
+ll
+ll test
+rt test
+sudo chown -R 0 /media/1863ab48-3592-40c1-b6a5-132595bfa9a4/
+sudo chown -R ababa /media/1863ab48-3592-40c1-b6a5-132595bfa9a4/home/ababa
+exit
+sudo rm -rf Desktop/backup
+exit
+lsblk
+exit
+nnn
+export EDITOR=nvim
+nnn
+ls
+ls /media/Ventoy/mp3
+nnn
+ls /media/Ventoy/mp3
+exit
+ll /media/Ventoy/mp3/
+cd /media/Ventoy
+ls
+cd
+exit
+LS
+ls
+cd /media
+sh
+vi .zshrc
+vi .config/zsh/.zshrc
+nvim s
+pwd
+vi /etc/nixos/home.nix
+sudo nixos-rebuild switch
+zsh
+cd 
+cd -
+cd Do
+cd Documents
+cd
+cd -
+exit
+sudo nixos-rebuild boot 
+poweroff
+nvim s
+sudo nixos-rebuild switch 
+nvim s
+exit
+firefox
+setxkbmap
+nvim s
+sudo nixos-rebuild switch 
+nmcli
+nmcli connection up Orange-wifi
+sudo nixos-rebuild switch 
+setxkbmap -layout us,ara -variant ,digits -option caps:escape grp:ctrls_toggle 
+nvim Desktop/test\ new\ text\ editor.txt
+exit
+sudo update-grub
+sudo grub-mkconfig
+grub
+nvim 
+nvim s
+opera
+exit
+sudo nixos-rebuild switch 
+nnn
+ls
+nvim s
+sudo nixos-rebuild switch 
+nvim s
+sudo nixos-rebuild switch 
+nvim s
+sudo nixos-rebuild switch 
+exit
+ping google.com
+nvim s
+sudo nixos-rebuild switch 
+nano
+nnn
+nix-shell -p typespeed
+nvim s
+exit
+exit
+nvim
+man nvim
+exit
+cd /media/1863ab48-3592-40c1-b6a5-132595bfa9a4
+nnn /media/1863ab48-3592-40c1-b6a5-132595bfa9a4
+exit
+sudo nixos-rebuild boot --upgrade
+nvim s
+reboot
+firefox
+reboot
+firefox
+ls
+nmcli
+exit
+man configuration.nix
+nvim s
+exit
+nvim s
+exit
+nvim s
+sudo nixos-rebuild switch
+lslbk
+lsblk
+nnn /booot
+nnn /boot
+sudo nvim
+sudo nnn /boot
+exit
+sudo nnn /boot
+sudo nnn /boot\\
+
+exit
+nvim
+exit
+nvim
+exit
+nvim Desktop/test\ new\ text\ editor.txt
+exit
+nvim Desktop/test\ new\ text\ editor.txt
+exit
+nvim Desktop/test\ new\ text\ editor.txt
+exit
+nvim 
+exit
+nvim Desktop/test\ new\ text\ editor.txt
+exit
+nix-shell -p unzip
+nvim s
+sudo nixos-rebuild switch
+exit
+nnn
+nix-shell -p xkill
+exit
+EDITOR
+EDITOR= nvim
+echo $EDITOR
+export EDITOR=nvim
+echo $EDITOR
+exit
+exit
+nnn
+ls
+nnn
+echo $EDITOR
+export EDITOR=nvim
+echo $EDITOR
+nnn
+nvim s
+curl
+curl --help
+exit
+ls
+cd /media
+ls
+nnn /media/1863ab48-3592-40c1-b6a5-132595bfa9a4
+nvim Desktop/test\ new\ text\ editor.txt
+cat Desktop/test\ new\ text\ editor.txt
+setxkbmap -layout us,ara -variant ,digits -option ctrl:nocaps grp_led:num grp:ctrls_toggle \
+
+setxkbmap   -option ctrl:nocaps grp_led:num 
+setxkbmap -layout us,ara -variant ,digits -option ctrl:nocaps grp_led:num grp:ctrls_toggle \
+
+setxkbmap -layout us,ara  -option ctrl:nocaps grp_led:num grp:ctrls_toggle 
+setxkbmap -layout us,ara  -option ctrl:nocaps mod_led grp:ctrls_toggle 
+setxkbmap -option "grp:caps_toggle,grp_led:scroll"
+setxkbmap -option "grp:caps_toggle,grp_led:num"
+setxkbmap -option "grp:caps_toggle,grp_led:scroll"
+nvim /media/1863ab48-3592-40c1-b6a5-132595bfa9a4/home/ababa/notes/to\ edit\ in\ config\ in\ 23\ jan\ 2024
+exit
+exit
+nvim
+exit
+nvim s
+sudo nixos-rebuild switch
+reboot
+nvim 
+ls
+reboot
+nvim s
+sudo nixos-rebuild switch
+sudo nnn
+lsblk
+sudo mount /dev/nvme0n1p4 /mnt -o uid=1000
+sudo mount /dev/nvme0n1p4 /media/ -o uid=1000
+sudo mount /dev/nvme0n1p4 /media/ -O uid=1000
+nnn /media
+mv /boot/EFI/grub/grubx64.efi /boot/EFI/grub/grubx64.efi.bak
+sudo mv /boot/EFI/grub/grubx64.efi /boot/EFI/grub/grubx64.efi.bak
+reboot
+exit
+nvim s
+sudo nixos-rebuild switch
+nvim s
+exit
+exit
+pwd
+ls
+ps
+nvim s
+man configuration.nix
+nvim s
+sudo nixos-rebuild switch
+nvim s
+sudo nixos-rebuild switch
+sudo nix-collect-garbage -d
+reboot
+foot
+ls
+sudo nixos-rebuild switch
+ls
+nnn /media
+exit
+cat /media/1863ab48-3592-40c1-b6a5-132595bfa9a4/home/ababa/.zshrc
+nmcli
+ping google.com
+nvtop
+exit
+man homectl
+fg
+nnn
+nvim s
+man configuration.nix
+btop
+exit
+ping google.com
+ls
+exit
+nvim
+nmcl
+nmcli
+sudo nixos-rebuild switch
+ls
+exit
+nvim s
+exit
+nnn
+ls
+ps
+exit
+ping google.com
+nvim .config/hypr/hyprland.conf
+ls
+exit
+eit
+exit
+nivm 
+nvim s
+exit
+nvim s
+exit
+ping google.com
+exit
+exit
+cd /media
+cd 1863ab48-3592-40c1-b6a5-132595bfa9a4
+cd home
+cd ababa/
+ls
+cd Do
+cd Downloads
+ls
+cd app_source_files
+ls
+cd mydots
+ls
+git
+ls
+cd dots
+ls
+ll
+nnn
+cd
+ls
+cd Do
+ls
+cd Do
+cd Documents
+cd ..
+cd Downloads
+cd /
+pwd
+exit
+ls
+mkdir src
+cd src
+nnn
+cd 
+git
+cd
+pwd
+ls
+nvim s
+nvim /etc/nixos/home.nix
+export KEYTIMEOUT=1
+exit
+nvim /etc/nixos/home.nix
+exit
+notify-send lfss
+dunst
+exit
+nvim s
+nvim /etc/nixos/home.nix
+rm /etc/nixos/home.nix
+sudo rm /etc/nixos/home.nix
+exit
+nivm .config/zsh/.zshrc
+vim
+nvim
+nvim .config/zsh/.zshrc
+cd .config/zsh
+cd Desktop
+ls
+ll
+cp -r /nix/store/i0pmj6sp9f4i85jadahfifqhykyasp34-home-manager-files/.config/*  ~/Desktop/home-manager
+cd
+nvim /etc/nixos/home.nix
+exit
+nvtop
+ls
+nvim s
+pstree
+sudo nixos-rebuild switch
+sudo nix-collect-garbage -d
+sudo nixos-rebuild switch
+exit

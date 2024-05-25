@@ -1,0 +1,11 @@
+#[status]
+#separator_open  = ""
+#separator_close = ""
+#
+#[icon]
+#rules = []
+
+
+[manager]
+ratio          = [ 0, 1, 0 ]
+layout = [ 0, 1, 0 ]

@@ -126,7 +126,7 @@ environment.variables.WLR_NO_HARDWARE_CURSORS="1";
   users.users.ababa = {
     isNormalUser = true;
     description = "ababa";
-    extraGroups = ["libvirt" "input" "networkmanager" "flatpak" "docker" "wheel" "video" "audio" ];
+    extraGroups = ["wireshark" "libvirt" "input" "networkmanager" "flatpak" "docker" "wheel" "video" "audio" ];
     shell = pkgs.zsh;
   };
 
@@ -237,16 +237,18 @@ environment.variables.WLR_NO_HARDWARE_CURSORS="1";
     mediainfo
     cloc
     #gtk3
+        #pkgs.jetbrains.rust-rover
 
 
-(pkgs.python3.withPackages (python-pkgs: [
-      python-pkgs.tkinter
-      python-pkgs.matplotlib
-    ]))
+#(pkgs.python3.withPackages (python-pkgs: [
+#      python-pkgs.tkinter
+#      python-pkgs.matplotlib
+#    ]))
 
-    (import /home/ababa/osproj/default.nix)
-    (import /home/ababa/osproj/userman.nix)
+    #(import /home/ababa/osproj/default.nix)
+    #(import /home/ababa/osproj/userman.nix)
 
+htop
     #programs
     #puddletag #amazing app like mp3tag
     #firefox
@@ -261,6 +263,7 @@ environment.variables.WLR_NO_HARDWARE_CURSORS="1";
     #kdePackages.dolphin
     #lynx
     onlyoffice-bin
+    freeoffice
     ollama
     #burpsuite
     #nwg-look
@@ -372,7 +375,13 @@ services.tlp = {
 };
 services.system76-scheduler.settings.cfsProfiles.enable = true ;
 
-
+#  # Enable cron service
+#  services.cron = {
+#    enable = true;
+#    systemCronJobs = [
+#      "*/5 * * * *      root    date >> /tmp/cron.log"
+#    ];
+#  };
 #services.mysql = {
 #  enable= true;
 #  package = pkgs.mariadb;
