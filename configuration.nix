@@ -15,9 +15,9 @@
 
 
 boot.kernelParams = [
+"resume=/.swapfile"
 #"loglevel=5"
 #"splash"
-"resume=/.swapfile"
 #"nvidia.modeset=0"
 #"amd_iommu=on"
 #"iommu=pt"
@@ -57,28 +57,19 @@ systemd-boot.enable= true;
 ###   '';
 
 
-  # Enable networking
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.backend = "iwd";
   networking.hostName = "xxx"; # Define your hostname.
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
 
-  # Set your time zone.
   time.timeZone = "Africa/Cairo";
   time.hardwareClockInLocalTime = true;
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # Enable sound with pipewlire.
 ###   come check this
   hardware.bluetooth.enable = true;
   sound.enable = true;
@@ -96,7 +87,6 @@ systemd-boot.enable= true;
   };
 
 
-
 security.sudo.wheelNeedsPassword = false;
 security.polkit.enable = true ;
 security.pam.services.hyprlock = {};
@@ -105,21 +95,6 @@ security.pam.services.waylock = {};
 
 
 
-# Faster shutdown and reboot
-systemd.extraConfig = ''
-DefaultTimeoutStopSec=10s
-DefaultDeviceTimeoutStopSec=10s
-'';
-
-
-
-
-environment.variables.BROWSER="qutebrowser";
-environment.variables.QT_QPA_PLATFORM="wayland";
-environment.variables.XDG_SESSION_TYPE="wayland";
-environment.variables._JAVA_AWT_WM_NONREPARENTING="1";
-environment.variables.__GLX_VENDOR_LIBRARY_NAME="nvidia";
-environment.variables.WLR_NO_HARDWARE_CURSORS="1";
 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -147,112 +122,63 @@ environment.variables.WLR_NO_HARDWARE_CURSORS="1";
  
   
   environment.systemPackages = with pkgs; [
-    foot
-    gparted
-    gnome.gnome-disk-utility
-    neomutt
-    mailcap
-    ripgrep
-    tmux
-    mpv
-    yt-dlp
-    qutebrowser
-    fzf
-    zathura
-    aria
-    ffmpeg
-    git
-    trash-cli
-    btop
-    tldr
-    telegram-desktop
-    bemenu
-    psmisc
-    grim
-    slurp
-    wdisplays
-    fd
-    powertop
-    unzip
-    lxqt.lxqt-policykit
-    bicon
-    pavucontrol
-    unityhub
-    ttyper
-    urlscan
-    wl-clip-persist
-    wl-clipboard
-    imv
-    waylock
-    wine
-    wlsunset
-    obs-studio
-    xdg-utils
-    nix-tree
-    nix-du
-    nix-index
-    yazi
-    zoxide
-    gnome.nautilus
-    exiftool
-    galculator
-    wev
-    hyprpaper
-    ytfzf
-    libinput-gestures
-    protonup-qt
-    swayidle
-    linuxPackages_latest.kernel.dev
-    protontricks
-    dolphin
-    vieb
-    maven
-    postman
-    openjdk
-    ydotool
-    dunst
-    nyxt
-    gnumake
-    #gcc
-    luakit
-    firefox
-    #emacs
-    #hypridle
-    #zsh-system-clipboard
-    #(pkgs.callPackage /home/ababa/Downloads/git/LegacyFox/legacyFox.nix {})
-    #pkg-config
-    neovide
-    texliveTeTeX
-    gh
-    tor-browser
-    tree
-    ###################
-    file
-    xxd
-    ###################
-    mysql-workbench
-    nodejs
-    #jdk22
-    mysql_jdbc
-    mediainfo
-    cloc
-    #gtk3
-        #pkgs.jetbrains.rust-rover
-
-
-#(pkgs.python3.withPackages (python-pkgs: [
-#      python-pkgs.tkinter
-#      python-pkgs.matplotlib
-#    ]))
-
-    #(import /home/ababa/osproj/default.nix)
-    #(import /home/ababa/osproj/userman.nix)
-
-htop
-    #programs
+#    foot
+#    gparted
+#    gnome.gnome-disk-utility
+#    mailcap
+#    mpv
+#    qutebrowser
+#    ffmpeg
+#    bemenu
+#    grim
+#    slurp
+#    wdisplays
+#    pavucontrol
+#    lxqt.lxqt-policykit
+#    unityhub
+#    urlscan
+#    wl-clip-persist
+#    wl-clipboard
+#    wine
+#    wlsunset
+#    obs-studio
+#    xdg-utils
+#    protontricks
+#    galculator
+#    wev
+#    libinput-gestures
+#    protonup-qt
+#    swayidle
+#    dolphin
+#    maven
+#    postman
+#    openjdk
+#    ydotool
+#    dunst
+#    gnumake
+#    gcc
+#    emacs
+#    hypridle
+#    zsh-system-clipboard
+#    (pkgs.callPackage /home/ababa/Downloads/git/LegacyFox/legacyFox.nix {})
+#    pkg-config
+#    texliveTeTeX
+#    tor-browser
+#    gtk3
+#    mysql-workbench
+#    nodejs
+#    jdk22
+#    mysql_jdbc
+#    pkgs.jetbrains.rust-rover
+#    onlyoffice-bin
+#    ollama
+    #burpsuite
+    #nwg-look
+    #zsh-fzf-tab
+    #home-manager
+    #dissent
+    #virtio-win
     #puddletag #amazing app like mp3tag
-    #firefox
-    #nvtopPackages.nvidia
     #blueman
     #(pkgs-stable.waybar)
     #gcc
@@ -262,44 +188,69 @@ htop
     #kdePackages.kdeconnect-kde
     #kdePackages.dolphin
     #lynx
-    onlyoffice-bin
+
     freeoffice
-    ollama
-    #burpsuite
-    #nwg-look
-    #zsh-fzf-tab
-    #home-manager
-    #dissent
-    #virtio-win
+    neomutt
+    ripgrep
+    tmux
+    yt-dlp
+    fzf
+    zathura
+    aria
+    git
+    trash-cli
+    btop
+    tldr
+    telegram-desktop
+    psmisc
+    fd
+    powertop
+    unzip
+    bicon
+    ttyper
+    imv
+    waylock
+    yazi
+    zoxide
+    gnome.nautilus
+    exiftool
+    hyprpaper
+    linuxPackages_latest.kernel.dev
+    firefox
+    gh
+    tree
+    file
+    xxd
+    mediainfo
+    cloc
+
+    #(import /home/ababa/osproj/default.nix)
   ];
 
 programs = { 
-  waybar.enable = true;
-  steam.enable = true;
+#  waybar.enable = true;
+#  steam.enable = true;
   kdeconnect.enable = true ;
   neovim.defaultEditor = true;
   neovim.enable = true;
   neovim.vimAlias = true;
   neovim.viAlias = true ;
-  fzf.keybindings = true;
+#  fzf.keybindings = true;
 #  fzf.fuzzyCompletion = true;
   nano.enable = false;
-  light.enable = true;
+#  light.enable = true;
   zsh.enable = true;
   zsh.autosuggestions.enable = true;
   zsh.syntaxHighlighting.enable = true;
   zsh.interactiveShellInit = ''
     source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
-# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
-#zstyle ':completion:*' menu no
     '';
-#zstyle ':fzf-tab:*<CMD>*' continuous-trigger ''
-  hyprland = {
-    enable = true;
-    xwayland.enable = true;
-#    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-  };
-};
+#  hyprland = {
+#    enable = true;
+#    xwayland.enable = true;
+##    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+#  };
+#};
 
 
 
@@ -309,40 +260,40 @@ fonts.packages= with pkgs; [
 
 
 
-services.xserver.videoDrivers = ["nvidia"];
-	hardware.nvidia = {
-		modesetting.enable = true;  
-		open = true; #try it  -----------------------------
-		powerManagement.finegrained = true;
-		nvidiaSettings = true; #also try it --------
-		forceFullCompositionPipeline = false;
-		package = config.boot.kernelPackages.nvidiaPackages.production;
-	};
-	hardware.nvidia.prime = {
-		offload = {
-			enable = true;
-			enableOffloadCmd = true;
-		};
-		nvidiaBusId = "PCI:1:0:0";
-		amdgpuBusId = "PCI:6:0:0";
-		};
+#services.xserver.videoDrivers = ["nvidia"];
+#	hardware.nvidia = {
+#		modesetting.enable = true;  
+#		open = true; #try it  -----------------------------
+#		powerManagement.finegrained = true;
+#		nvidiaSettings = true; #also try it --------
+#		forceFullCompositionPipeline = false;
+#		package = config.boot.kernelPackages.nvidiaPackages.production;
+#	};
+#	hardware.nvidia.prime = {
+#		offload = {
+#			enable = true;
+#			enableOffloadCmd = true;
+#		};
+#		nvidiaBusId = "PCI:1:0:0";
+#		amdgpuBusId = "PCI:6:0:0";
+#		};
+
+
+
 #to disable nvidia
 #boot.blacklistedKernelModules = [ "nouveau" "nvidia" "nvidia_drm" "nvidia_modeset" ];
 
 
   # Configure keymap in X11
   services.xserver = {
-    enable = true;
+    #enable = true;
+    enable = false;
  #   xkb.layout = "us,ara";
  #   xkb.variant = "digits";
  #   xkb.options = "ctrl:nocaps,grp:ctrls_toggle";
   };
   #services.xserver.displayManager.sddm.wayland.enable= true;
-  services.xserver.displayManager.gdm.enable = true;
-  #services.desktopManager.plasma6.enable = true;
-
-  # Enable CUPS to print documents.
-  #services.printing.enable = false;
+  services.desktopManager.plasma6.enable = true;
 
 
 #nixpkgs.config.cudaSupport = false;
@@ -355,11 +306,8 @@ services.xserver.videoDrivers = ["nvidia"];
 		enable = true;
 	};
 
-
 #services.flatpak.enable = true;
 
-
-  # Enable the OpenSSH daemon.
 services.openssh.enable = true;
 services.dbus.enable = true;
 
@@ -375,25 +323,6 @@ services.tlp = {
 };
 services.system76-scheduler.settings.cfsProfiles.enable = true ;
 
-#  # Enable cron service
-#  services.cron = {
-#    enable = true;
-#    systemCronJobs = [
-#      "*/5 * * * *      root    date >> /tmp/cron.log"
-#    ];
-#  };
-#services.mysql = {
-#  enable= true;
-#  package = pkgs.mariadb;
-#};
-
-#virtualisation.docker = {
-#  enable = true;
-#  rootless = {
-#    enable = true;
-#    setSocketVariable = true;
-#  };
-#};
 
 
 
@@ -402,19 +331,12 @@ services.system76-scheduler.settings.cfsProfiles.enable = true ;
 #  enable = true;
 #};
 
-
- system.stateVersion = "24.05"; 
+ system.stateVersion = "23.11"; 
 
 nix.gc = {
     automatic = true;
     dates = "daily";
     options = "--delete-older-than 3d";
   };
-
-  # Optimize storage
-  # You can also manually optimize the store via:
-  #    nix-store --optimise
-  # Refer to the following link for more details:
-  # https://nixos.org/manual/nix/stable/command-ref/conf-file.html#conf-auto-optimise-store
   nix.settings.auto-optimise-store = true;
 }
