@@ -327,7 +327,7 @@ services.system76-scheduler.settings.cfsProfiles.enable = true ;
 #  enable = true;
 #};
 
- system.stateVersion = "23.11"; 
+ system.stateVersion = "24.05"; 
 
 nix.gc = {
     automatic = true;
