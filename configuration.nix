@@ -108,15 +108,12 @@ security.pam.services.waylock = {};
 ###};
 ###};
 
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = "nix-command flakes";
 
 
 
 
- 
-  
   environment.systemPackages = with pkgs; [
 #    foot
 #    gparted
@@ -274,13 +271,10 @@ fonts.packages= with pkgs; [
 #		amdgpuBusId = "PCI:6:0:0";
 #		};
 
-
-
 #to disable nvidia
 #boot.blacklistedKernelModules = [ "nouveau" "nvidia" "nvidia_drm" "nvidia_modeset" ];
 
 
-  # Configure keymap in X11
   services.xserver = {
     #enable = true;
     enable = false;
@@ -297,7 +291,6 @@ fonts.packages= with pkgs; [
 
 
 
-# udisk mounting
 	services.udisks2 = {
 		enable = true;
 	};
