@@ -329,10 +329,10 @@ services.mysql = {
 };
 
 services.cron = {
-  enable = true;
+  enable = false;
   systemCronJobs = [
-    "*/1 * * * *      root    date >> /tmp/cron.log"
-    "* * * * *  ababa    /home/ababa/edrakSoftware/task6/backup.sh /home/ababa/important/ /home/ababa/cronbackup/"
+#    "*/1 * * * *      root    date >> /tmp/cron.log"
+#    "* * * * *  ababa    /home/ababa/edrakSoftware/task6/backup.sh /home/ababa/important/ /home/ababa/cronbackup/"
     ];
   };
 
