@@ -3,7 +3,7 @@
 
 {
   imports =
-    [ 
+    [
       ./hardware-configuration.nix
       #inputs.home-manager.nixosModules.default
       #<home-manager/nixos> 
@@ -63,7 +63,6 @@ systemd-boot.enable= true;
 
   time.timeZone = "Africa/Cairo";
   time.hardwareClockInLocalTime = true;
-
   i18n.defaultLocale = "en_US.UTF-8";
 
 ###   come check this
@@ -77,7 +76,6 @@ systemd-boot.enable= true;
     alsa.support32Bit = true;
     pulse.enable = true;
     wireplumber.enable = true;
-
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
   };
@@ -115,23 +113,16 @@ security.pam.services.waylock = {};
 
 
   environment.systemPackages = with pkgs; [
-#    foot
 #    gparted
 #    gnome.gnome-disk-utility
 #    mailcap
-#    mpv
-#    qutebrowser
-#    ffmpeg
-#    bemenu
 #    grim
 #    slurp
 #    wdisplays
-#    pavucontrol
 #    lxqt.lxqt-policykit
 #    unityhub
 #    urlscan
 #    wl-clip-persist
-#    wl-clipboard
 #    wine
 #    wlsunset
 #    obs-studio
@@ -139,15 +130,12 @@ security.pam.services.waylock = {};
 #    protontricks
 #    galculator
 #    wev
-#    libinput-gestures
 #    protonup-qt
 #    swayidle
 #    dolphin
 #    maven
 #    postman
 #    openjdk
-#    ydotool
-#    dunst
 #    gnumake
 #    gcc
 #    emacs
@@ -155,7 +143,6 @@ security.pam.services.waylock = {};
 #    zsh-system-clipboard
 #    (pkgs.callPackage /home/ababa/Downloads/git/LegacyFox/legacyFox.nix {})
 #    pkg-config
-#    texliveTeTeX
 #    tor-browser
 #    gtk3
 #    mysql-workbench
@@ -164,24 +151,45 @@ security.pam.services.waylock = {};
 #    mysql_jdbc
 #    pkgs.jetbrains.rust-rover
 #    onlyoffice-bin
-#    ollama
-    #burpsuite
-    #nwg-look
-    #zsh-fzf-tab
-    #home-manager
-    #dissent
-    #virtio-win
-    #puddletag #amazing app like mp3tag
-    #blueman
-    #(pkgs-stable.waybar)
-    #gcc
-    #gnumake
-    #tree
-    #kdePackages.qt6ct
-    #kdePackages.kdeconnect-kde
-    #kdePackages.dolphin
-    #lynx
+#    burpsuite
+#    nwg-look
+#    zsh-fzf-tab
+#    home-manager
+#    dissent
+#    virtio-win
+#    puddletag #amazing app like mp3tag
+#    blueman
+#    (pkgs-stable.waybar)
+#    gcc
+#    gnumake
+#    tree
+#    kdePackages.qt6ct
+#    kdePackages.kdeconnect-kde
+#    kdePackages.dolphin
+#    lynx
+   #programs
+   #progs
+    pavucontrol
+    nmon
+    htop
 
+    thunderbird
+    waybar
+
+
+
+    mpv
+    foot
+    qutebrowser
+    ffmpeg
+    bemenu
+    wl-clipboard
+    libinput-gestures
+    ydotool
+    dunst
+    #texliveTeTeX
+    texliveFull
+    ollama
     freeoffice
     neomutt
     ripgrep
@@ -221,7 +229,9 @@ security.pam.services.waylock = {};
   ];
 
 programs = { 
-#  waybar.enable = true;
+  #waybar.enable = true;
+ssh.askPassword = pkgs.lib.mkForce "${pkgs.ksshaskpass.out}/bin/ksshaskpass";
+
 #  steam.enable = true;
   kdeconnect.enable = true ;
   neovim.defaultEditor = true;
@@ -238,12 +248,12 @@ programs = {
   zsh.interactiveShellInit = ''
     source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
     '';
-#  hyprland = {
-#    enable = true;
-#    xwayland.enable = true;
-##    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-#  };
-#};
+  hyprland = {
+    enable = true;
+    xwayland.enable = true;
+#    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+  };
+};
 
 
 
@@ -276,14 +286,15 @@ fonts.packages= with pkgs; [
 
 
   services.xserver = {
-    #enable = true;
-    enable = false;
+    enable = true;
  #   xkb.layout = "us,ara";
  #   xkb.variant = "digits";
  #   xkb.options = "ctrl:nocaps,grp:ctrls_toggle";
+  displayManager.gdm.enable = true;
+  desktopManager.gnome.enable = true;
   };
-  #services.xserver.displayManager.sddm.wayland.enable= true;
   services.desktopManager.plasma6.enable = true;
+  #services.displayManager.sddm.enable = true;
 
 
 #nixpkgs.config.cudaSupport = false;
@@ -291,28 +302,39 @@ fonts.packages= with pkgs; [
 
 
 
-	services.udisks2 = {
-		enable = true;
-	};
+services.udisks2 = {
+	enable = true;
+};
 
 #services.flatpak.enable = true;
 
-services.openssh.enable = true;
+#services.openssh.enable = true;
 services.dbus.enable = true;
 
 
-services.tlp = {
+#services.tlp = {
+#  enable = true;
+#  settings = {
+#    CPU_BOOST_ON_AC = 1;
+#    CPU_BOOST_ON_BAT = 0;
+#    CPU_SCALING_GOVERNER_ON_AC = "performence";
+#    CPU_SCALING_GOVERNER_ON_BAT = "powersave";
+#    };
+#};
+#services.system76-scheduler.settings.cfsProfiles.enable = true;
+
+services.mysql = {
   enable = true;
-  settings = {
-    CPU_BOOST_ON_AC = 1;
-    CPU_BOOST_ON_BAT = 0;
-    CPU_SCALING_GOVERNER_ON_AC = "performence";
-    CPU_SCALING_GOVERNER_ON_BAT = "powersave";
+  package = pkgs.mariadb;
 };
-};
-services.system76-scheduler.settings.cfsProfiles.enable = true ;
 
-
+services.cron = {
+  enable = true;
+  systemCronJobs = [
+    "*/1 * * * *      root    date >> /tmp/cron.log"
+    "* * * * *  ababa    /home/ababa/edrakSoftware/task6/backup.sh /home/ababa/important/ /home/ababa/cronbackup/"
+    ];
+  };
 
 
 #programs.virt-manager.enable = true;
@@ -320,7 +342,7 @@ services.system76-scheduler.settings.cfsProfiles.enable = true ;
 #  enable = true;
 #};
 
- system.stateVersion = "24.05"; 
+ system.stateVersion = "24.05";
 
 nix.gc = {
     automatic = true;
