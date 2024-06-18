@@ -2,6 +2,38 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+---mine---------------------------------------------------------------------------------------
+vim.cmd("command! -nargs=0 W :w !sudo tee %")
+-- Enable undo file
+vim.opt.swapfile = false
+-- vim.opt.undodir = os.getenv("HOME") .. "/.cache/undodir"
+vim.opt.backup = false
+vim.opt.undofile = true
+
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 2
+--vi like
+--vim.opt.laststatus = 1
+--vim.cmd("syntax off")
+vim.wo.signcolumn = "no"
+
+vim.cmd("inoremap jk <Esc>")
+-- vim.cmd("vnoremap jk <Esc>")
+vim.cmd("cnoremap jk <C-c><cmd>nohlsearch<CR>")
+
+--vim.cmd("nnoremap j jzz")
+--vim.cmd("nnoremap k kzz")
+
+vim.cmd("tnoremap <c-space> <C-\\><C-n>")
+
+vim.opt.timeoutlen = 500
+
+-- require("lspconfig").jdtls.setup({})
+-- require("mini.animate").setup()
+
+vim.keymap.set("n", "<leader>t", vim.cmd.Ex)
+---mine---------------------------------------------------------------------------------------
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 
@@ -216,7 +248,6 @@ require("lazy").setup({
 			end, { desc = "[S]earch [N]eovim files" })
 		end,
 	},
-	-----------------------------------------------------------------------------------------------------------------------------
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
 		dependencies = {
@@ -226,57 +257,19 @@ require("lazy").setup({
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 
 			-- Useful status updates for LSP.
-			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
 			{ "j-hui/fidget.nvim", opts = {} },
 		},
 		config = function()
-			-- Brief Aside: **What is LSP?**
-			--
-			-- LSP is an acronym you've probably heard, but might not understand what it is.
-			--
-			-- LSP stands for Language Server Protocol. It's a protocol that helps editors
-			-- and language tooling communicate in a standardized fashion.
-			--
-			-- In general, you have a "server" which is some tool built to understand a particular
-			-- language (such as `gopls`, `lua_ls`, `rust_analyzer`, etc). These Language Servers
-			-- (sometimes called LSP servers, but that's kind of like ATM Machine) are standalone
-			-- processes that communicate with some "client" - in this case, Neovim!
-			--
-			-- LSP provides Neovim with features like:
-			--  - Go to definition
-			--  - Find references
-			--  - Autocompletion
-			--  - Symbol Search
-			--  - and more!
-			--
-			-- Thus, Language Servers are external tools that must be installed separately from
-			-- Neovim. This is where `mason` and related plugins come into play.
-			--
-			-- If you're wondering about lsp vs treesitter, you can check out the wonderfully
-			-- and elegantly composed help section, `:help lsp-vs-treesitter`
-
-			--  This function gets run when an LSP attaches to a particular buffer.
-			--    That is to say, every time a new file is opened that is associated with
-			--    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
-			--    function will be executed to configure the current buffer
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 				callback = function(event)
-					-- NOTE: Remember that lua is a real programming language, and as such it is possible
-					-- to define small helper and utility functions so you don't have to repeat yourself
-					-- many times.
-					--
-					-- In this case, we create a function that lets us more easily define mappings specific
-					-- for LSP related items. It sets the mode, buffer and description for us each time.
+					-- using a real programming languages functions to do this nice job which just make remmaping easier
 					local map = function(keys, func, desc)
 						vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 					end
 
-					-- Jump to the definition of the word under your cursor.
-					--  This is where a variable was first declared, or where a function is defined, etc.
-					--  To jump back, press <C-T>.
+					--  go to definition To jump back, press <C-T>.
 					map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-
 					-- Find references for the word under your cursor.
 					map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
 
@@ -317,6 +310,7 @@ require("lazy").setup({
 					--  For example, in C this would take you to the header
 					map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
+					-----------------------------------------------------------------------------------------------------------------------------
 					-- The following two autocommands are used to highlight references of the
 					-- word under your cursor when your cursor rests there for a little while.
 					--    See `:help CursorHold` for information about when this is executed
@@ -567,27 +561,16 @@ require("lazy").setup({
 	{ -- Collection of various small independent plugins/modules
 		"echasnovski/mini.nvim",
 		config = function()
-			-- Better Around/Inside textobjects
-			--
-			-- Examples:
-			--  - va)  - [V]isually select [A]round [)]paren
-			--  - yinq - [Y]ank [I]nside [N]ext [']quote
-			--  - ci'  - [C]hange [I]nside [']quote
-			require("mini.ai").setup({ n_lines = 500 })
-
-			-- Add/delete/replace surroundings (brackets, quotes, etc.)
-			--
-			-- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-			-- - sd'   - [S]urround [D]elete [']quotes
-			-- - sr)'  - [S]urround [R]eplace [)] [']
-			require("mini.surround").setup()
-
+			require("mini.pairs").setup()
+			require("mini.map").setup()
+			-- maybe a good plugin for future
+			-- require("mini.brcketed").setup()
+			require("mini.git").setup()
 			-- Simple and easy statusline.
 			--  You could remove this setup call if you don't like it,
 			--  and try some other statusline plugin
 			local statusline = require("mini.statusline")
 			statusline.setup()
-
 			-- You can configure sections in the statusline by overriding their
 			-- default behavior. For example, here we set the section for
 			-- cursor location to LINE:COLUMN
@@ -600,6 +583,7 @@ require("lazy").setup({
 			--  Check out: https://github.com/echasnovski/mini.nvim
 		end,
 	},
+	---------------------------------------------------------------------------------
 
 	{ -- Highlight, edit, and navigate code
 		"nvim-treesitter/nvim-treesitter",
@@ -645,44 +629,4 @@ require("lazy").setup({
 	--  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
 	--    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
 	-- { import = 'custom.plugins' },
-
-	{
-		"Bekaboo/dropbar.nvim",
-		-- optional, but required for fuzzy finder support
-		dependencies = {
-			"nvim-telescope/telescope-fzf-native.nvim",
-		},
-	},
 })
----mine---------------------------------------------------------------------------------------
-
-vim.cmd("command! -nargs=0 W :w !sudo tee %")
-
--- Enable undo file
-vim.opt.swapfile = false
--- vim.opt.undodir = os.getenv("HOME") .. "/.cache/undodir"
-vim.opt.backup = false
-vim.opt.undofile = true
-
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 2
---vi like
---vim.opt.laststatus = 1
---vim.cmd("syntax off")
-vim.wo.signcolumn = "no"
-
-vim.cmd("inoremap jk <Esc>")
--- vim.cmd("vnoremap jk <Esc>")
-vim.cmd("cnoremap jk <C-c><cmd>nohlsearch<CR>")
-
---vim.cmd("nnoremap j jzz")
---vim.cmd("nnoremap k kzz")
-
-vim.cmd("tnoremap <c-space> <C-\\><C-n>")
-
-vim.opt.timeoutlen = 500
-
--- require("lspconfig").jdtls.setup({})
--- require("mini.animate").setup()
-
-vim.keymap.set("n", "<leader>t", vim.cmd.Ex)
