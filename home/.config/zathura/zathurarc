@@ -1,10 +1,15 @@
 set first-page-column 2
 set page-dual-first-page 2
 set page-padding 0
+set recolor-keephue
+set recolor-reverse-video
+set recolor
 
 unmap <C-m>
-set guioptions hv 
-set adjust-open best-fit
+unmap [fullscreen] q
+#unmap <Button1>
+#set guioptions hv 
+set adjust-open width
 set completion-bg "#504945"
 set completion-fg "#ebdbb2"
 set recolor-darkcolor "#fbfbfb"
@@ -12,6 +17,20 @@ set recolor-lightcolor "#222222"
 set default-bg  "#222222"
 set default-fg  "#e0d0b0"
 set selection-clipboard clipboard
-map <C-z> recolor
+set scroll-page-aware
+map z recolor
+map [fullscreen] z recolor
 map f toggle_fullscreen
 map [fullscreen] f toggle_fullscreen
+#map <Button3> scroll full-up
+#map [fullscreen] <Button3> scroll full-up
+#map <Button1> scroll full-down
+#map [fullscreen] <Button1> scroll full-down
+map b scroll full-up
+map [fullscreen] b scroll full-up
+map j feedkeys <C-Down>
+map [fullscreen] j feedkeys <C-Down>
+map k feedkeys <C-Up>
+map [fullscreen] k feedkeys <C-Up>
+#map [fullscreen] <Button2> feedkeys <Button1>
+#map  <Button2> feedkeys <Button1>

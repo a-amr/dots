@@ -1,13 +1,14 @@
 * {
     border: none;
-    border-radius: 0;
+    border-radius: 9;
     font-family: Jetbrains Mono Medium;
     font-size: 10pt;
     min-height: 0;
 }
 
 window#waybar {
-    background: #1d1f21;
+    /*background: #1d1f21; */
+    background: #000000;
     color: white;
 }
 
@@ -26,7 +27,7 @@ tooltip label {
     color: white;
 }
 
-#workspaces button.focused {
+workspaces button.focused {
     background: #333333;
     border-bottom: 2px solid #327bd1;
 }

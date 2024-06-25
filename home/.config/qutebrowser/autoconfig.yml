@@ -6,188 +6,93 @@
 
 config_version: 2
 settings:
-  auto_save.interval:
-    global: 1500
   auto_save.session:
     global: true
   bindings.commands:
     global:
+      command:
+        jk: mode-leave
+      hint:
+        jk: mode-leave
       insert:
-        <Ctrl+f>: hint
-        <Ctrl+h>: cmd-run-with-count 1 :fake-key <Backspace>
-        <Ctrl+j>: cmd-run-with-count 1 :fake-key <Return>
-        <Ctrl+p>: :cmd-run-with-count 1 :fake-key k
-        <Ctrl+r>: reload
+        jk: mode-leave
       normal:
-        ;a: hint links userscript aria2c_fetch.sh
-        <Ctrl+h>: back
-        <Ctrl+l>: forward
-        <Ctrl+v>: fake-key <Ctrl-v>
-        J: tab-prev
-        K: tab-next
-        k: scroll up
-  bindings.key_mappings:
-    global:
-      <Ctrl-6>: <Ctrl-^>
-      <Ctrl-Enter>: <Ctrl-Return>
-      <Ctrl-I>: <Tab>
-      <Ctrl-J>: <Return>
-      <Ctrl-M>: <Return>
-      <Ctrl-[>: <Escape>
-      <Enter>: <Return>
-      <Shift-Enter>: <Return>
-      <Shift-Return>: <Return>
-  changelog_after_upgrade:
-    global: minor
-  colors.hints.bg:
-    global: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(155, 247, 11, 0.8),
-      stop:1 rgba(155, 247, 166, 0.8))
-  colors.hints.fg:
-    global: black
-  colors.hints.match.fg:
-    global: '#ebdbb2'
-  colors.statusbar.insert.bg:
-    global: '#1d2021'
-  colors.statusbar.insert.fg:
-    global: '#ebdbb2'
-  colors.statusbar.url.hover.fg:
-    global: aqua
-  colors.statusbar.url.success.https.fg:
-    global: '#ebdbb2'
-  colors.tabs.bar.bg:
-    global: '#222222'
-  colors.tabs.even.bg:
-    global: '#222222'
-  colors.tabs.odd.bg:
-    global: '#222222'
-  colors.tabs.selected.even.bg:
-    global: '#445577'
-  colors.tabs.selected.odd.bg:
-    global: '#445577'
+        <Ctrl+Shift+Tab>: null
+        <Ctrl+Tab>: null
+        <Ctrl+v>: fake-key <Ctrl+V>
+        b: tab-prev
+        j: scroll-px 0 150
+        k: scroll-px 0 -150
+        w: tab-next
   colors.webpage.darkmode.enabled:
     global: false
-  colors.webpage.preferred_color_scheme:
-    global: dark
+  completion.height:
+    global: 50%
   content.autoplay:
     global: false
+  content.desktop_capture:
+    https://teams.microsoft.com: true
   content.fullscreen.window:
-    global: true
-  content.geolocation:
-    https://www.google.com: false
-  content.headers.user_agent:
-    global: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML,
-      like Gecko) Chrome/117.0.0.0 Safari/537.36
-  content.javascript.can_open_tabs_automatically:
     global: false
+  content.javascript.can_open_tabs_automatically:
+    global: true
   content.javascript.clipboard:
     global: access
+  content.javascript.modal_dialog:
+    global: true
   content.media.audio_capture:
-    https://mictests.com: true
-  content.notifications.enabled:
     https://teams.microsoft.com: true
-  content.register_protocol_handler:
-    https://mail.google.com?extsrc=mailto&url=%25s: true
-  content.webrtc_ip_handling_policy:
-    global: all-interfaces
-  editor.command:
-    global:
-    - vim
-    - -f
-    - '{file}'
-    - -c
-    - normal {line}G{column0}l
-  fileselect.folder.command:
-    global:
-    - st
-    - -e
-    - nnn
-    - '{}'
-  fileselect.handler:
-    global: default
-  fileselect.multiple_files.command:
-    global:
-    - st
-    - -e
-    - nnn
-    - --choosefiles={}
-  fileselect.single_file.command:
-    global:
-    - st
-    - -e
-    - nnn
-    - --choosefile={}
-  fonts.completion.category:
-    global: bold default_size default_family
+  content.media.video_capture:
+    https://teams.microsoft.com: true
+  downloads.prevent_mixed_content:
+    global: true
   fonts.default_size:
-    global: 18pt
-  fonts.downloads:
-    global: default_size default_family
-  fonts.hints:
-    global: default_size default_family
-  hints.auto_follow_timeout:
-    global: 0
+    global: 12pt
   hints.chars:
-    global: asdfoeul
+    global: asdfvul
   hints.leave_on_load:
     global: true
-  hints.mode:
-    global: letter
-  hints.radius:
-    global: 15
-  hints.scatter:
-    global: true
-  hints.uppercase:
-    global: false
   input.insert_mode.auto_load:
     global: true
-  input.insert_mode.leave_on_load:
-    global: true
-  input.insert_mode.plugins:
-    global: true
+  input.mouse.rocker_gestures:
+    global: false
   scrolling.smooth:
-    global: true
-  statusbar.padding:
+    global: false
+  statusbar.position:
+    global: top
+  tabs.favicons.scale:
+    global: 0.0
+  tabs.indicator.padding:
     global:
-      bottom: 1
+      bottom: 2
       left: 0
       right: 0
-      top: 1
-  statusbar.position:
-    global: bottom
-  statusbar.show:
-    global: in-mode
-  statusbar.widgets:
-    global:
-    - search_match
-    - url
+      top: 2
+  tabs.indicator.width:
+    global: 0
   tabs.last_close:
     global: close
-  tabs.mode_on_change:
-    global: persist
-  tabs.mousewheel_switching:
-    global: true
-  tabs.show:
-    global: multiple
-  tabs.tabs_are_windows:
-    global: false
+  tabs.new_position.related:
+    global: next
+  tabs.new_position.unrelated:
+    global: next
+  tabs.padding:
+    global:
+      bottom: 5
+      left: 0
+      right: 0
+      top: 5
   tabs.title.format:
-    global: '{audio}{perc}{current_title}'
-  url.auto_search:
-    global: dns
-  url.default_page:
-    global: https://paulgo.io
+    global: '{audio} {current_title}'
+  tabs.tooltips:
+    global: false
   url.searchengines:
     global:
-      DEFAULT: https://google.com/search?q={}
+      DEFAULT: https://duckduckgo.com/?q={}
+      y: https://www.youtube.com/results?search_query={}
   url.start_pages:
     global: paulgo.io
-  url.yank_ignored_parameters:
-    global:
-    - ref
-    - utm_source
-    - utm_medium
-    - utm_campaign
-    - utm_term
-    - utm_content
+  window.title_format:
+    global: '{perc}{current_title}'
   zoom.default:
-    global: 150%
+    global: 120%
