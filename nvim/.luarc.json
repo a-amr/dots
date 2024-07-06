@@ -1,0 +1,11 @@
+{
+    "diagnostics.globals": [
+        "vim",
+        "lfdocal",
+        "fdTheGroup",
+        "ldocal"
+    ],
+    "diagnostics.disable": [
+        "undefined-global"
+    ]
+}
