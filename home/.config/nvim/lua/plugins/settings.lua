@@ -16,7 +16,7 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = -1
 vim.opt.shiftwidth = 0
 -- make no real \t just spaces
--- vim.opt.expandtab = true
+vim.opt.expandtab = true
 
 -- vi like
 -- vim.opt.laststatus = 1
@@ -76,8 +76,9 @@ vim.opt.splitbelow = true
 
 vim.opt.list = true
 --vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
-vim.opt.listchars = { tab = "»»", trail = " ", nbsp = "␣" }
+-- vim.opt.listchars = { tab = "»»", trail = " ", nbsp = "␣" }
 -- Preview substitutions live, as you type!
+-- very important
 vim.opt.inccommand = "split"
 
 -- Show which line your cursor is on
@@ -111,35 +112,35 @@ vim.g.netrw_browse_split = 3
 
 -- yank highlight
 vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("highlight-yanked-text", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
+  desc = "Highlight when yanking (copying) text",
+  group = vim.api.nvim_create_augroup("highlight-yanked-text", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
 })
 -- lsp keybindings
 local TheGroup = vim.api.nvim_create_augroup('group', {})
 vim.api.nvim_create_autocmd('LspAttach', {
-	group = TheGroup,
-	callback = function(e)
-		local opts = { buffer = e.buf }
-		vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, { desc = "LSP: goto definition" }, opts)
-		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "LSP: goto declaration" }, opts)
+  group = TheGroup,
+  callback = function(e)
+    local opts = { buffer = e.buf }
+    vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, { desc = "LSP: goto definition" }, opts)
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "LSP: goto declaration" }, opts)
 
-		vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end,
-			{ desc = "LSP:workspace symbols " }, opts)
-		vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, { desc = "LSP: open float!! " }, opts)
-		vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, { desc = "LSP: code action" }, opts)
-		vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, { desc = "LSP:references!! " }, opts)
-		vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, { desc = "LSP: rename" }, opts)
-		vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, { desc = "LSP: signature_help" }, opts)
-		vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next() end, { desc = "LSP: next error" }, opts)
-		vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev() end, { desc = "LSP: previous error" }, opts)
-		vim.keymap.set("n", "gI", require("telescope.builtin").lsp_implementations, { desc = "LSP: goto implementation" },
-			opts)
-		vim.keymap.set("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols,
-			{ desc = "LSP: workspace symbols" }, opts)
-		vim.keymap.set("n", "<leader>ds", require("telescope.builtin").lsp_document_symbols,
-			{ desc = "LSP: document symbols" }, opts)
-	end
+    vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end,
+      { desc = "LSP:workspace symbols " }, opts)
+    vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, { desc = "LSP: open float!! " }, opts)
+    vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, { desc = "LSP: code action" }, opts)
+    vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, { desc = "LSP:references!! " }, opts)
+    vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, { desc = "LSP: rename" }, opts)
+    vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, { desc = "LSP: signature_help" }, opts)
+    vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next() end, { desc = "LSP: next error" }, opts)
+    vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev() end, { desc = "LSP: previous error" }, opts)
+    vim.keymap.set("n", "gI", require("telescope.builtin").lsp_implementations, { desc = "LSP: goto implementation" },
+      opts)
+    vim.keymap.set("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols,
+      { desc = "LSP: workspace symbols" }, opts)
+    vim.keymap.set("n", "<leader>ds", require("telescope.builtin").lsp_document_symbols,
+      { desc = "LSP: document symbols" }, opts)
+  end
 })
