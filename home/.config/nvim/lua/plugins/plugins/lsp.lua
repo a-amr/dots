@@ -62,16 +62,15 @@ return {
 			},
 		})
 
-
-
 		require("lazy-lsp").setup {
 			-- By default all available servers are set up. Exclude unwanted or misbehaving servers.
 			excluded_servers = {
-				"denols", "ltex", "sourcekit", "digestif", "tailwindcss", "scry", "ccls", "zk", "rnix",
+				"nixd", "denols", "ltex", "sourcekit", "digestif", "tailwindcss", "scry", "ccls", "zk", "rnix",
 			},
 			-- Alternatively specify preferred servers for a filetype (others will be ignored).
 			preferred_servers = {
-				-- markdown = {},
+				markdown = {},
+				nix = { nil },
 				lua = { "lua_ls" },
 				c = { "clangd" },
 				-- python = { "pyright", "ruff_lsp" },
@@ -84,12 +83,9 @@ return {
 				},
 				capabilities = vim.tbl_deep_extend("force", vim.lsp.protocol.make_client_capabilities(), require("cmp_nvim_lsp").default_capabilities()),
 				-- on_attach = on_attach,
-				-- capabilities = capabilities,
 			},
 			-- Override config for specific servers that will passed down to lspconfig setup.
 			-- Note that the default_config will be merged with this specific configuration so you don't need to specify everything twice.
-
-
 			configs = {
 				lua_ls = {
 					settings = {
@@ -102,30 +98,6 @@ return {
 					},
 				},
 			},
-
-
-
 		}
-
-
-
-
-
-
-		-- 	config = function()
-		--    See `:help CursorHold` for information about when this is executed
-		-- 				local client = vim.lsp.get_client_by_id(event.data.client_id)
-		-- 				if client and client.server_capabilities.documentHighlightProvider then
-		-- 					vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-		-- 						buffer = event.buf,
-		-- 						callback = vim.lsp.buf.document_highlight,
-		-- 					})
-		--
-		-- 					vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-		-- 						buffer = event.buf,
-		-- 						callback = vim.lsp.buf.clear_references,
-		-- 					})
-		-- 				end
-		-- 			end,
 	end
 }
