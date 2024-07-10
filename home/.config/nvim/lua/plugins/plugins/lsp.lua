@@ -65,12 +65,12 @@ return {
 		require("lazy-lsp").setup {
 			-- By default all available servers are set up. Exclude unwanted or misbehaving servers.
 			excluded_servers = {
-				"nixd", "denols", "ltex", "sourcekit", "digestif", "tailwindcss", "scry", "ccls", "zk", "rnix",
+				-- "nixd",
+				"denols", "ltex", "sourcekit", "digestif", "tailwindcss", "scry", "ccls", "zk", -- "rnix",
 			},
 			-- Alternatively specify preferred servers for a filetype (others will be ignored).
 			preferred_servers = {
 				markdown = {},
-				nix = { nil },
 				lua = { "lua_ls" },
 				c = { "clangd" },
 				-- python = { "pyright", "ruff_lsp" },
