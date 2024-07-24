@@ -29,23 +29,24 @@ return {
 			--  Check out: https://github.com/echasnovski/mini.nvim
 		end,
 	},
+{"ellisonleao/glow.nvim", config = true, cmd = "Glow"},
 	{ "dstein64/nvim-scrollview", opts = {} },
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		main = "ibl",
-		config = function()
-			require("ibl").setup {
-				indent = {
-					tab_char = { "⎜" },
-					char = { "┋" },
-				},
-				scope = {
-					enabled = true,
-					char = { "║" },
-				},
-			}
-		end
-	},
+	-- {
+	-- 	"lukas-reineke/indent-blankline.nvim",
+	-- 	main = "ibl",
+	-- 	config = function()
+	-- 		require("ibl").setup {
+	-- 			indent = {
+	-- 				tab_char = { "⎜" },
+	-- 				char = { "┋" },
+	-- 			},
+	-- 			scope = {
+	-- 				enabled = true,
+	-- 				char = { "║" },
+	-- 			},
+	-- 		}
+	-- 	end
+	-- },
 
 	-- { -- Adds git related signs to the gutter, as well as utilities for managing changes
 	--   "lewis6991/gitsigns.nvim",

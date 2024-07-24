@@ -101,11 +101,35 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "lsp format" })
 
-vim.g.netrw_browse_split = 3
+--------------------changes
+-- vim.g.netrw_browse_split = 3
+
+vim.opt.listchars = { tab = '» '}
+-- vim.cmd("colorscheme desert")
+vim.cmd("colorscheme zaibatsu")
 
 
+-- vim.keymap.set("c", "E<CR>", "<cmd>Ex<CR><CR>" ,{ silent = true })
+
+-- vim.cmd("q")
+-- au BufWritePost *.ms !groff -ms % -T pdf > %:r.pdf
+
+-- Create an autocmd group for better management
+local group = vim.api.nvim_create_augroup("GroffCompile", { clear = true })
+
+-- Create an autocmd for BufWritePost event
+vim.api.nvim_create_autocmd("BufWritePost", {
+    group = group,
+    pattern = "*.ms",
+    callback = function()
+        local filename = vim.fn.expand("%")
+        local output = vim.fn.expand("%:r") .. ".pdf"
+        vim.cmd("!wsl groff -ms " .. filename .. " -Tpdf -Tps > " .. output)
+    end,
+})
 
 
+vim.opt.guicursor='n-v-c-sm-i-ci-ve:ver25,r-cr-o:hor2'
 
 
 
@@ -157,12 +181,3 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		end
 	end
 })
-
-
-
-
-
--- vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
--- vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
--- vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
--- vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
