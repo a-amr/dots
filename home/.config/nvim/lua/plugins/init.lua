@@ -1,5 +1,6 @@
 -- maybe i will need to use snippets in the future (luasnip or frindly snippits)
 require("plugins.settings")
+require("plugins.windows")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then

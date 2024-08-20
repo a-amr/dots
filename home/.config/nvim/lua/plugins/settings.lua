@@ -25,10 +25,15 @@ vim.opt.shiftwidth = 0
 vim.wo.signcolumn = "no"
 
 vim.cmd("inoremap jk <Esc>")
+
+vim.cmd("nnoremap <UP> <NOP>")
+vim.cmd("nnoremap <DOWN> <NOP>")
+vim.cmd("nnoremap <LEFT> <NOP>")
+vim.cmd("nnoremap <RIGHT> <NOP>")
 vim.cmd("cnoremap jk <C-c><cmd>nohlsearch<CR>")
 
 
-vim.cmd("tnoremap <c-space> <C-\\><C-n>")
+-- vim.cmd("tnoremap <c-space> <C-\\><C-n>")
 
 vim.opt.timeoutlen = 500
 
@@ -104,9 +109,9 @@ vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "lsp format" })
 --------------------changes
 -- vim.g.netrw_browse_split = 3
 
-vim.opt.listchars = { tab = '» '}
--- vim.cmd("colorscheme desert")
-vim.cmd("colorscheme zaibatsu")
+vim.opt.listchars = { tab = '» ' }
+vim.cmd("colorscheme desert")
+-- vim.cmd("colorscheme zaibatsu")
 
 
 -- vim.keymap.set("c", "E<CR>", "<cmd>Ex<CR><CR>" ,{ silent = true })
@@ -129,7 +134,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 })
 
 
-vim.opt.guicursor='n-v-c-sm-i-ci-ve:ver25,r-cr-o:hor2'
+ vim.opt.guicursor='n-v-c-sm-i-ci-ve:ver25,r-cr-o:hor2'
 
 
 
