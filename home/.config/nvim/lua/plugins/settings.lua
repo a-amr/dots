@@ -25,6 +25,10 @@ vim.opt.shiftwidth = 0
 vim.wo.signcolumn = "no"
 
 vim.cmd("inoremap jk <Esc>")
+vim.cmd("inoremap Jk <Esc>")
+vim.cmd("inoremap JK <Esc>")
+vim.cmd("inoremap kj <Esc>")
+vim.cmd("inoremap Kj <Esc>")
 
 vim.cmd("nnoremap <UP> <NOP>")
 vim.cmd("nnoremap <DOWN> <NOP>")
@@ -37,7 +41,7 @@ vim.cmd("cnoremap jk <C-c><cmd>nohlsearch<CR>")
 
 vim.opt.timeoutlen = 500
 
-vim.keymap.set("n", "<leader>t", vim.cmd.Ex, { desc = "open netrw" })
+-- vim.keymap.set("n", "<leader>t", vim.cmd.Ex, { desc = "open netrw" })
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
