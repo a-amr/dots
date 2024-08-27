@@ -116,7 +116,7 @@ vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "lsp format" })
 vim.opt.listchars = { tab = '» ' }
 vim.cmd("colorscheme desert")
 -- vim.cmd("colorscheme zaibatsu")
-
+vim.o.splitright = false
 
 -- vim.keymap.set("c", "E<CR>", "<cmd>Ex<CR><CR>" ,{ silent = true })
 
