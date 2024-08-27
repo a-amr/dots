@@ -70,6 +70,7 @@ return {
 				load = {
 					["core.defaults"] = {},
 					["core.concealer"] = {},
+					["core.syntax"] = {},
 				},
 			}
 		end,
