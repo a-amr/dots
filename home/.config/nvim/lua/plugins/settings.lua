@@ -30,10 +30,10 @@ vim.cmd("inoremap JK <Esc>")
 vim.cmd("inoremap kj <Esc>")
 vim.cmd("inoremap Kj <Esc>")
 
-vim.cmd("nnoremap <UP> <NOP>")
-vim.cmd("nnoremap <DOWN> <NOP>")
-vim.cmd("nnoremap <LEFT> <NOP>")
-vim.cmd("nnoremap <RIGHT> <NOP>")
+-- vim.cmd("nnoremap <UP> <NOP>")
+-- vim.cmd("nnoremap <DOWN> <NOP>")
+-- vim.cmd("nnoremap <LEFT> <NOP>")
+-- vim.cmd("nnoremap <RIGHT> <NOP>")
 vim.cmd("cnoremap jk <C-c><cmd>nohlsearch<CR>")
 
 
