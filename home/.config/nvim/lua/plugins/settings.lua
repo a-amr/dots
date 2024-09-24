@@ -13,11 +13,11 @@ vim.opt.undofile = true
 
 
 -- https://vi.stackexchange.com/questions/4244/what-is-softtabstop-used-for
-vim.opt.tabstop = 2
+vim.opt.tabstop = 4
 vim.opt.softtabstop = -1
 vim.opt.shiftwidth = 0
 -- make no real \t just spaces
--- vim.opt.expandtab = true
+vim.opt.expandtab = true
 
 -- vi like
 -- vim.opt.laststatus = 1

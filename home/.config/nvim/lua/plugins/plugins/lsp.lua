@@ -8,6 +8,7 @@ return {
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-cmdline",
+		"kristijanhusak/vim-dadbod-completion",
 		'rafamadriz/friendly-snippets',
 		{
 			"L3MON4D3/LuaSnip",
@@ -56,6 +57,7 @@ return {
 			sources = {
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
+				{ name = "vim-dadbod-completion"},
 				{ name = "path" },
 				{ name = 'cmdline' },
 				{ name = 'buffer' },
