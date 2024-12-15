@@ -1,9 +1,42 @@
 ﻿#Requires AutoHotkey v2.0
 SetCapsLockState "AlwaysOff"
 
-; Remap Shift Left + Shift Right to Caps Lock
-LShift & RShift::Capslock
-RShift & LShift::Capslock
+^[::send "{Esc}"
+
+LCtrl & j::send "^{PgDn}"
+LCtrl & k::send "^{PgUp}"
+
+
+DetectHiddenWindows "On"
+WinExistCheck(Title, Path) {
+    if WinExist(Title) {
+        WinActivate
+    } else {
+        Run(Path)
+    }
+}
+
+
+
+
+!w:: WinExistCheck("Firefox", "C:\Program Files\Mozilla Firefox\firefox.exe")
+;!w:: WinExistCheck("Zen Browser", "C:\Program Files\Zen Browser\zen.exe")
+!m:: winExistCheck("thunderbird", "c:\program files\mozilla thunderbird\thunderbird.exe")
+;!t:: WinExistCheck("Terminal", "C:\Users\" A_UserName "\AppData\Local\Microsoft\WindowsApps\wt.exe")
+!t:: {
+    WinExistCheck("Terminal", "C:\Users\" A_UserName "\AppData\Local\Microsoft\WindowsApps\wt.exe")
+    
+    ; Check if the current input language is not English (0x0409)
+    InputLang := DllCall("GetKeyboardLayout", "UInt", DllCall("GetWindowThreadProcessId", "UInt", WinActive(), "UInt"), "UInt")
+    if (InputLang != 0x0409) {
+        ; Switch to English input
+        PostMessage(0x50, 0, 0x0409, , "A")
+    }
+}
+!e:: WinExistCheck("ahk_class CabinetWClass", "C:\WINDOWS\explorer.exe")
+
+;RShift & LShift::Capslock
+;lshift & rshift::capslock
 ;Capslock::Ctrl
 ;LCtrl::Return
 ;#HotIf GetKeyState('CapsLock', 'P')
@@ -48,42 +81,13 @@ RShift & LShift::Capslock
 ;  SendInput "#^{Left}"
 ;  }
 
-^k::send "^{PgUp}"
-^j::send "^{PgDn}"
-
-;LCtrl & j::send "^{PgDn}"
-;LCtrl & k::send "^{PgUp}"
-
-
-DetectHiddenWindows "On"
-WinExistCheck(Title, Path) {
-    if WinExist(Title) {
-        WinActivate
-    } else {
-        Run(Path)
-    }
-}
-
-!s:: {
-    result := InputBox("Enter the window name to open (case-insensitive):")
-    if result.Result != "OK" || result.Value == ""
-        return
-    wname_lower := StrLower(result.Value)
-    for window in WinGetList() {
-        this_title := WinGetTitle(window)
-        this_title_lower := StrLower(this_title)
-        if InStr(this_title_lower, wname_lower) {
-            WinActivate(window)
-            return
-        }
-    }
-    MsgBox("Window '" result.Value "' not found.")
-}
-
-
-
-!f:: WinExistCheck("Firefox", "C:\Program Files\Mozilla Firefox\firefox.exe")
-;!f:: WinExistCheck("Zen Browser", "C:\Program Files\Zen Browser\zen.exe")
-!m:: winExistCheck("thunderbird", "c:\program files\mozilla thunderbird\thunderbird.exe")
-!t:: WinExistCheck("Terminal", "C:\Users\" A_UserName "\AppData\Local\Microsoft\WindowsApps\wt.exe")
-!e:: WinExistCheck("ahk_class CabinetWClass", "C:\WINDOWS\explorer.exe")
+;^k::send "^{PgUp}"
+;^j::send "^{PgDn}"
+;!h::send "{Left}"
+;!j::send "{down}"
+;!K::send "{up}"
+;!l::send "{Right}"
+;RAlt & h::send "{Left}"
+;RAlt & l::send "{Right}"
+;RAlt & j::send "{down}"
+;RAlt & K::send "{up}"

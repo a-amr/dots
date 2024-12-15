@@ -1,7 +1,20 @@
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+------------------------------------------------
+vim.api.nvim_create_user_command(
+  'Unified',
+  function()
+    vim.cmd([[
+      %s/^/E:\\Updates\\removebinding.ps1 -Binding '/
+      %s/$/'/
+      normal ggyG
+    ]])
+  end,
+  {}
+)
 
+---------------------------------------
 -- mine---------------------------------------------------------------------------------------
 --  vim.cmd("command! -nargs=0 W :w !sudo tee %")
 vim.keymap.set("c", "W<CR>", "<cmd>w !sudo tee %<CR><cmd>e!<CR><esc>", { silent = true })
