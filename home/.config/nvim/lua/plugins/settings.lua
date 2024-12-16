@@ -106,6 +106,7 @@ vim.opt.inccommand = "split"
 
 -- Show which line your cursor is on
 vim.opt.cursorline = true
+vim.opt.cursorcolumn = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 500
@@ -127,7 +128,7 @@ vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "lsp format" })
 -- vim.g.netrw_browse_split = 3
 
 vim.opt.listchars = { tab = '» ' }
-vim.cmd("colorscheme desert")
+-- vim.cmd("colorscheme desert")
 -- vim.cmd("colorscheme zaibatsu")
 vim.o.splitright = false
 
