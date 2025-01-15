@@ -12,7 +12,7 @@ return {
         "kristijanhusak/vim-dadbod-completion",
         { "j-hui/fidget.nvim", opts = {} },
     },
-
+   event = "BufReadPre",
     config = function()
         require("mason").setup()
         require("mason-lspconfig").setup()

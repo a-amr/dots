@@ -35,19 +35,18 @@ vim.opt.expandtab = true
 -- vi like
 -- vim.opt.laststatus = 1
 -- vim.cmd("syntax off")
-vim.wo.signcolumn = "no"
+-- vim.wo.signcolumn = "no"
 
-vim.cmd("inoremap jk <Esc>")
-vim.cmd("inoremap Jk <Esc>")
-vim.cmd("inoremap JK <Esc>")
-vim.cmd("inoremap kj <Esc>")
-vim.cmd("inoremap Kj <Esc>")
+-- vim.cmd("inoremap jk <Esc>")
+-- vim.cmd("inoremap Jk <Esc>")
+-- vim.cmd("inoremap JK <Esc>")
+-- vim.cmd("inoremap kj <Esc>")
+-- vim.cmd("inoremap Kj <Esc>")
 
--- vim.cmd("nnoremap <UP> <NOP>")
--- vim.cmd("nnoremap <DOWN> <NOP>")
--- vim.cmd("nnoremap <LEFT> <NOP>")
--- vim.cmd("nnoremap <RIGHT> <NOP>")
-vim.cmd("cnoremap jk <C-c><cmd>nohlsearch<CR>")
+vim.cmd('noremap x "_x')
+vim.cmd('noremap X "_X')
+vim.cmd('noremap <Del> "_x')
+-- vim.cmd("cnoremap jk <C-c><cmd>nohlsearch<CR>")
 
 
 -- vim.cmd("tnoremap <c-space> <C-\\><C-n>")
@@ -56,8 +55,8 @@ vim.opt.timeoutlen = 500
 
 -- vim.keymap.set("n", "<leader>t", vim.cmd.Ex, { desc = "open netrw" })
 
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+-- vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+-- vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 -- nice but i don't need it now
 --  vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 -- mine---------------------------------------------------------------------------------------
@@ -78,7 +77,7 @@ vim.opt.showmode = true
 vim.opt.clipboard = "unnamedplus"
 
 -- Enable break indent
-vim.opt.breakindent = true
+-- vim.opt.breakindent = true
 
 -- Save undo history
 vim.opt.undofile = true
@@ -87,15 +86,15 @@ vim.opt.undofile = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
-vim.opt.signcolumn = "auto"
+-- vim.opt.signcolumn = "auto"
 
 -- Decrease update time
-vim.opt.updatetime = 250
-vim.opt.timeoutlen = 300
+-- vim.opt.updatetime = 250
+-- vim.opt.timeoutlen = 300
 
 -- Configure how new splits should be opened
-vim.opt.splitright = true
-vim.opt.splitbelow = true
+-- vim.opt.splitright = true
+-- vim.opt.splitbelow = true
 
 -- vim.opt.list = true
 --vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
@@ -109,7 +108,7 @@ vim.opt.cursorline = true
 vim.opt.cursorcolumn = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 500
+-- vim.opt.scrolloff = 500
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
@@ -121,16 +120,16 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 -- vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 -- vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+-- vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "lsp format" })
 
 --------------------changes
 -- vim.g.netrw_browse_split = 3
 
-vim.opt.listchars = { tab = '» ' }
+-- vim.opt.listchars = { tab = '» ' }
 -- vim.cmd("colorscheme desert")
 -- vim.cmd("colorscheme zaibatsu")
-vim.o.splitright = false
+-- vim.o.splitright = false
 
 -- vim.keymap.set("c", "E<CR>", "<cmd>Ex<CR><CR>" ,{ silent = true })
 
@@ -152,7 +151,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 })
 
 
- vim.opt.guicursor='n-v-c-sm-i-ci-ve:ver25,r-cr-o:hor2'
+ -- vim.opt.guicursor='n-v-c-sm-i-ci-ve:ver25,r-cr-o:hor2'
 
 
 
