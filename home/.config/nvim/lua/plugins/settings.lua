@@ -43,9 +43,6 @@ vim.opt.expandtab = true
 -- vim.cmd("inoremap kj <Esc>")
 -- vim.cmd("inoremap Kj <Esc>")
 
-vim.cmd('noremap x "_x')
-vim.cmd('noremap X "_X')
-vim.cmd('noremap <Del> "_x')
 -- vim.cmd("cnoremap jk <C-c><cmd>nohlsearch<CR>")
 
 
